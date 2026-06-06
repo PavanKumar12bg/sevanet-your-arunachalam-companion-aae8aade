@@ -1,11 +1,14 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { LogOut } from "lucide-react";
+import { toast } from "sonner";
 
 export function SiteHeader() {
   const [user, setUser] = useState<User | null>(null);
   const [roles, setRoles] = useState<string[]>([]);
+  const nav = useNavigate();
 
   useEffect(() => {
     const sync = async (u: User | null) => {
@@ -21,6 +24,13 @@ export function SiteHeader() {
 
   const isAdmin = roles.includes("admin") || roles.includes("super_admin");
   const isBiz = isAdmin || roles.includes("business_owner");
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) return toast.error(error.message);
+    toast.success("లాగ్ అవుట్ అయ్యారు");
+    nav({ to: "/" });
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
@@ -41,7 +51,13 @@ export function SiteHeader() {
           {isAdmin && <Link to="/admin" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">Admin</Link>}
           {isBiz && <Link to="/business/dashboard" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">Business</Link>}
           {user ? (
-            <Link to="/account" className="rounded-full border border-accent/40 px-4 py-1.5 hover:bg-accent/10">ఖాతా</Link>
+            <>
+              <Link to="/account" className="rounded-full border border-accent/40 px-4 py-1.5 hover:bg-accent/10">ఖాతా</Link>
+              <button onClick={signOut} title="లాగ్ అవుట్" className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted-foreground hover:border-destructive hover:text-destructive">
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">లాగ్ అవుట్</span>
+              </button>
+            </>
           ) : (
             <>
               <Link to="/login" className="text-muted-foreground hover:text-foreground">లాగిన్</Link>
