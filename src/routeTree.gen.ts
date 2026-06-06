@@ -9,38 +9,208 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ListingsRouteImport } from './routes/listings'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ListingSlugRouteImport } from './routes/listing.$slug'
+import { Route as BusinessRegisterRouteImport } from './routes/business.register'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListingsRoute = ListingsRouteImport.update({
+  id: '/listings',
+  path: '/listings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ListingSlugRoute = ListingSlugRouteImport.update({
+  id: '/listing/$slug',
+  path: '/listing/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessRegisterRoute = BusinessRegisterRouteImport.update({
+  id: '/business/register',
+  path: '/business/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/listings': typeof ListingsRoute
+  '/login': typeof LoginRoute
+  '/map': typeof MapRoute
+  '/register': typeof RegisterRoute
+  '/business/register': typeof BusinessRegisterRoute
+  '/listing/$slug': typeof ListingSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/listings': typeof ListingsRoute
+  '/login': typeof LoginRoute
+  '/map': typeof MapRoute
+  '/register': typeof RegisterRoute
+  '/business/register': typeof BusinessRegisterRoute
+  '/listing/$slug': typeof ListingSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/listings': typeof ListingsRoute
+  '/login': typeof LoginRoute
+  '/map': typeof MapRoute
+  '/register': typeof RegisterRoute
+  '/business/register': typeof BusinessRegisterRoute
+  '/listing/$slug': typeof ListingSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/account'
+    | '/forgot-password'
+    | '/listings'
+    | '/login'
+    | '/map'
+    | '/register'
+    | '/business/register'
+    | '/listing/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/account'
+    | '/forgot-password'
+    | '/listings'
+    | '/login'
+    | '/map'
+    | '/register'
+    | '/business/register'
+    | '/listing/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/account'
+    | '/forgot-password'
+    | '/listings'
+    | '/login'
+    | '/map'
+    | '/register'
+    | '/business/register'
+    | '/listing/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  ListingsRoute: typeof ListingsRoute
+  LoginRoute: typeof LoginRoute
+  MapRoute: typeof MapRoute
+  RegisterRoute: typeof RegisterRoute
+  BusinessRegisterRoute: typeof BusinessRegisterRoute
+  ListingSlugRoute: typeof ListingSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listings': {
+      id: '/listings'
+      path: '/listings'
+      fullPath: '/listings'
+      preLoaderRoute: typeof ListingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +218,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/listing/$slug': {
+      id: '/listing/$slug'
+      path: '/listing/$slug'
+      fullPath: '/listing/$slug'
+      preLoaderRoute: typeof ListingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business/register': {
+      id: '/business/register'
+      path: '/business/register'
+      fullPath: '/business/register'
+      preLoaderRoute: typeof BusinessRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  ListingsRoute: ListingsRoute,
+  LoginRoute: LoginRoute,
+  MapRoute: MapRoute,
+  RegisterRoute: RegisterRoute,
+  BusinessRegisterRoute: BusinessRegisterRoute,
+  ListingSlugRoute: ListingSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
