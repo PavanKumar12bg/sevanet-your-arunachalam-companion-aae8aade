@@ -14,11 +14,22 @@ import { Route as MapRouteImport } from './routes/map'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ListingsRouteImport } from './routes/listings'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ListingSlugRouteImport } from './routes/listing.$slug'
 import { Route as BusinessRegisterRouteImport } from './routes/business.register'
+import { Route as BusinessDashboardRouteImport } from './routes/business.dashboard'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
+import { Route as AdminListingsRouteImport } from './routes/admin.listings'
+import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
+import { Route as AdminBusinessesRouteImport } from './routes/admin.businesses'
+import { Route as BusinessListingsIdRouteImport } from './routes/business.listings.$id'
+import { Route as AdminListingsIdRouteImport } from './routes/admin.listings.$id'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -45,6 +56,11 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccountRoute = AccountRouteImport.update({
   id: '/account',
   path: '/account',
@@ -60,6 +76,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ListingSlugRoute = ListingSlugRouteImport.update({
   id: '/listing/$slug',
   path: '/listing/$slug',
@@ -70,18 +91,74 @@ const BusinessRegisterRoute = BusinessRegisterRouteImport.update({
   path: '/business/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusinessDashboardRoute = BusinessDashboardRouteImport.update({
+  id: '/business/dashboard',
+  path: '/business/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminListingsRoute = AdminListingsRouteImport.update({
+  id: '/listings',
+  path: '/listings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBusinessesRoute = AdminBusinessesRouteImport.update({
+  id: '/businesses',
+  path: '/businesses',
+  getParentRoute: () => AdminRoute,
+} as any)
+const BusinessListingsIdRoute = BusinessListingsIdRouteImport.update({
+  id: '/business/listings/$id',
+  path: '/business/listings/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminListingsIdRoute = AdminListingsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminListingsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/listings': typeof ListingsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/register': typeof RegisterRoute
+  '/admin/businesses': typeof AdminBusinessesRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/listings': typeof AdminListingsRouteWithChildren
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/business/dashboard': typeof BusinessDashboardRoute
   '/business/register': typeof BusinessRegisterRoute
   '/listing/$slug': typeof ListingSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/listings/$id': typeof AdminListingsIdRoute
+  '/business/listings/$id': typeof BusinessListingsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,21 +169,42 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/register': typeof RegisterRoute
+  '/admin/businesses': typeof AdminBusinessesRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/listings': typeof AdminListingsRouteWithChildren
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/business/dashboard': typeof BusinessDashboardRoute
   '/business/register': typeof BusinessRegisterRoute
   '/listing/$slug': typeof ListingSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/listings/$id': typeof AdminListingsIdRoute
+  '/business/listings/$id': typeof BusinessListingsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
+  '/admin': typeof AdminRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
   '/listings': typeof ListingsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/register': typeof RegisterRoute
+  '/admin/businesses': typeof AdminBusinessesRoute
+  '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/listings': typeof AdminListingsRouteWithChildren
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/business/dashboard': typeof BusinessDashboardRoute
   '/business/register': typeof BusinessRegisterRoute
   '/listing/$slug': typeof ListingSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/listings/$id': typeof AdminListingsIdRoute
+  '/business/listings/$id': typeof BusinessListingsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -114,13 +212,24 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/account'
+    | '/admin'
     | '/forgot-password'
     | '/listings'
     | '/login'
     | '/map'
     | '/register'
+    | '/admin/businesses'
+    | '/admin/categories'
+    | '/admin/listings'
+    | '/admin/reviews'
+    | '/admin/settings'
+    | '/admin/users'
+    | '/business/dashboard'
     | '/business/register'
     | '/listing/$slug'
+    | '/admin/'
+    | '/admin/listings/$id'
+    | '/business/listings/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,33 +240,57 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/register'
+    | '/admin/businesses'
+    | '/admin/categories'
+    | '/admin/listings'
+    | '/admin/reviews'
+    | '/admin/settings'
+    | '/admin/users'
+    | '/business/dashboard'
     | '/business/register'
     | '/listing/$slug'
+    | '/admin'
+    | '/admin/listings/$id'
+    | '/business/listings/$id'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/account'
+    | '/admin'
     | '/forgot-password'
     | '/listings'
     | '/login'
     | '/map'
     | '/register'
+    | '/admin/businesses'
+    | '/admin/categories'
+    | '/admin/listings'
+    | '/admin/reviews'
+    | '/admin/settings'
+    | '/admin/users'
+    | '/business/dashboard'
     | '/business/register'
     | '/listing/$slug'
+    | '/admin/'
+    | '/admin/listings/$id'
+    | '/business/listings/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccountRoute: typeof AccountRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   ListingsRoute: typeof ListingsRoute
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   RegisterRoute: typeof RegisterRoute
+  BusinessDashboardRoute: typeof BusinessDashboardRoute
   BusinessRegisterRoute: typeof BusinessRegisterRoute
   ListingSlugRoute: typeof ListingSlugRoute
+  BusinessListingsIdRoute: typeof BusinessListingsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -197,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account': {
       id: '/account'
       path: '/account'
@@ -218,6 +358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/listing/$slug': {
       id: '/listing/$slug'
       path: '/listing/$slug'
@@ -232,20 +379,120 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BusinessRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/business/dashboard': {
+      id: '/business/dashboard'
+      path: '/business/dashboard'
+      fullPath: '/business/dashboard'
+      preLoaderRoute: typeof BusinessDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/listings': {
+      id: '/admin/listings'
+      path: '/listings'
+      fullPath: '/admin/listings'
+      preLoaderRoute: typeof AdminListingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/businesses': {
+      id: '/admin/businesses'
+      path: '/businesses'
+      fullPath: '/admin/businesses'
+      preLoaderRoute: typeof AdminBusinessesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/business/listings/$id': {
+      id: '/business/listings/$id'
+      path: '/business/listings/$id'
+      fullPath: '/business/listings/$id'
+      preLoaderRoute: typeof BusinessListingsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/listings/$id': {
+      id: '/admin/listings/$id'
+      path: '/$id'
+      fullPath: '/admin/listings/$id'
+      preLoaderRoute: typeof AdminListingsIdRouteImport
+      parentRoute: typeof AdminListingsRoute
+    }
   }
 }
+
+interface AdminListingsRouteChildren {
+  AdminListingsIdRoute: typeof AdminListingsIdRoute
+}
+
+const AdminListingsRouteChildren: AdminListingsRouteChildren = {
+  AdminListingsIdRoute: AdminListingsIdRoute,
+}
+
+const AdminListingsRouteWithChildren = AdminListingsRoute._addFileChildren(
+  AdminListingsRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminBusinessesRoute: typeof AdminBusinessesRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminListingsRoute: typeof AdminListingsRouteWithChildren
+  AdminReviewsRoute: typeof AdminReviewsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBusinessesRoute: AdminBusinessesRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminListingsRoute: AdminListingsRouteWithChildren,
+  AdminReviewsRoute: AdminReviewsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccountRoute: AccountRoute,
+  AdminRoute: AdminRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
   ListingsRoute: ListingsRoute,
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   RegisterRoute: RegisterRoute,
+  BusinessDashboardRoute: BusinessDashboardRoute,
   BusinessRegisterRoute: BusinessRegisterRoute,
   ListingSlugRoute: ListingSlugRoute,
+  BusinessListingsIdRoute: BusinessListingsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
