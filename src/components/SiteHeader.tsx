@@ -38,6 +38,8 @@ export function SiteHeader() {
           <Link to="/about" className="hover:text-accent transition-colors">గురించి</Link>
         </nav>
         <div className="flex items-center gap-2 text-sm">
+          {isAdmin && <Link to="/admin" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">Admin</Link>}
+          {isBiz && <Link to="/business/dashboard" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">Business</Link>}
           {user ? (
             <Link to="/account" className="rounded-full border border-accent/40 px-4 py-1.5 hover:bg-accent/10">ఖాతా</Link>
           ) : (
