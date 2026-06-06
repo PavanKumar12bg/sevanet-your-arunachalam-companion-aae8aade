@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+// Hidden, persistent background chanting. No visible controls.
+// Admin manages source/volume via /admin/settings (audio).
 export function AudioPlayer() {
   const ref = useRef<HTMLAudioElement>(null);
-  const [muted, setMuted] = useState(true);
-  const [url, setUrl] = useState<string | null>(null);
-  const [vol, setVol] = useState(0.35);
 
   useEffect(() => {
+    let cancelled = false;
     supabase
       .from("audio_settings")
       .select("audio_url, volume, is_active")
@@ -16,43 +15,26 @@ export function AudioPlayer() {
       .limit(1)
       .maybeSingle()
       .then(({ data }) => {
-        if (data?.audio_url) {
-          setUrl(data.audio_url);
-          setVol(Number(data.volume) || 0.35);
-        }
+        if (cancelled || !data?.audio_url) return;
+        const el = ref.current;
+        if (!el) return;
+        el.src = data.audio_url;
+        el.volume = Number(data.volume) || 0.35;
+        el.loop = true;
+        const tryPlay = () => el.play().catch(() => {});
+        tryPlay();
+        const onGesture = () => {
+          tryPlay();
+          window.removeEventListener("click", onGesture);
+          window.removeEventListener("touchstart", onGesture);
+          window.removeEventListener("keydown", onGesture);
+        };
+        window.addEventListener("click", onGesture, { once: true });
+        window.addEventListener("touchstart", onGesture, { once: true });
+        window.addEventListener("keydown", onGesture, { once: true });
       });
+    return () => { cancelled = true; };
   }, []);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !url) return;
-    el.volume = vol;
-    const tryPlay = () => el.play().then(() => setMuted(false)).catch(() => {});
-    tryPlay();
-    const onClick = () => { tryPlay(); window.removeEventListener("click", onClick); };
-    window.addEventListener("click", onClick, { once: true });
-    return () => window.removeEventListener("click", onClick);
-  }, [url, vol]);
-
-  const toggle = () => {
-    const el = ref.current;
-    if (!el) return;
-    if (el.paused) { el.play(); setMuted(false); }
-    else { el.pause(); setMuted(true); }
-  };
-
-  if (!url) return null;
-
-  return (
-    <>
-      <audio ref={ref} src={url} loop preload="auto" />
-      <button
-        onClick={toggle}
-        aria-label={muted ? "Play chant" : "Pause chant"}
-        className="fixed bottom-5 right-5 z-50 h-12 w-12 rounded-full bg-gradient-gold text-gold-foreground shadow-glow flex items-center justify-center hover:scale-110 transition-transform"
-      >
-        {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-      </button>
-    </>
-  );
+  return <audio ref={ref} loop preload="auto" aria-hidden className="hidden" />;
 }
