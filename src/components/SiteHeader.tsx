@@ -5,12 +5,22 @@ import type { User } from "@supabase/supabase-js";
 
 export function SiteHeader() {
   const [user, setUser] = useState<User | null>(null);
+  const [roles, setRoles] = useState<string[]>([]);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
+    const sync = async (u: User | null) => {
+      setUser(u);
+      if (!u) { setRoles([]); return; }
+      const { data } = await supabase.from("user_roles").select("role").eq("user_id", u.id);
+      setRoles((data ?? []).map((r: any) => r.role));
+    };
+    supabase.auth.getSession().then(({ data }) => sync(data.session?.user ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => sync(s?.user ?? null));
     return () => sub.subscription.unsubscribe();
   }, []);
+
+  const isAdmin = roles.includes("admin") || roles.includes("super_admin");
+  const isBiz = isAdmin || roles.includes("business_owner");
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
