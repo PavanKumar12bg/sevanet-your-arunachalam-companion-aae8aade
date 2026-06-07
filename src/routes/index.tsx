@@ -4,6 +4,7 @@ import { Hotel, UtensilsCrossed, Landmark, Footprints, Bath, Cross, Car, Map, Se
 import heroAsset from "@/assets/arunachalam-deities.jpeg.asset.json";
 import shivaAsset from "@/assets/arunachalam-shiva.jpeg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
+import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,14 +34,27 @@ function Home() {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    supabase
-      .from("listings")
-      .select("id,title,slug,short_description,cover_image,rating_avg")
-      .eq("status", "published")
-      .order("is_featured", { ascending: false })
-      .order("created_at", { ascending: false })
-      .limit(6)
-      .then(({ data }) => setFeatured(data ?? []));
+    let active = true;
+    (async () => {
+      try {
+        const { data, error } = await withTimeout(
+          supabase
+            .from("listings")
+            .select("id,title,slug,short_description,cover_image,rating_avg")
+            .eq("status", "published")
+            .order("is_featured", { ascending: false })
+            .order("created_at", { ascending: false })
+            .limit(6),
+          "load featured listings",
+        );
+        if (error) throw error;
+        if (active) setFeatured(data ?? []);
+      } catch (error) {
+        logClientError("load featured listings", error);
+        if (active) setFeatured([]);
+      }
+    })();
+    return () => { active = false; };
   }, []);
 
   return (

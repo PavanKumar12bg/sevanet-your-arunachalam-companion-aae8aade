@@ -6,6 +6,7 @@ import { SiteHeader } from "../components/SiteHeader";
 import { SiteFooter } from "../components/SiteFooter";
 import { AudioPlayer } from "../components/AudioPlayer";
 import { Toaster } from "sonner";
+import { ErrorBoundary } from "../components/ErrorBoundary";
 
 function NotFoundComponent() {
   return (
@@ -69,7 +70,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">
         <SiteHeader />
-        <main className="flex-1"><Outlet /></main>
+        <main className="flex-1">
+          <ErrorBoundary label="route">
+            <Outlet />
+          </ErrorBoundary>
+        </main>
         <SiteFooter />
         <AudioPlayer />
         <Toaster theme="dark" position="top-center" />
