@@ -72,7 +72,13 @@ export function ListingForm({ userId, isAdmin, listingId, onSaved }: Props) {
             is_featured: l.is_featured, status: l.status,
           });
         }
-        setImages((imgs ?? []).filter((i) => i.storage_path).map((i) => ({ url: i.url, storage_path: i.storage_path! })));
+        const resolved = await Promise.all(
+          (imgs ?? []).filter((i) => i.storage_path).map(async (i) => ({
+            url: (await signImage("listings", i.storage_path!)) || i.url,
+            storage_path: i.storage_path!,
+          }))
+        );
+        setImages(resolved);
       } catch (error) {
         logClientError("load listing editor", error);
         toast.error("Listing could not be loaded. Please refresh and try again.");
