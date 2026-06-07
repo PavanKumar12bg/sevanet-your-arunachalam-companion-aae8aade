@@ -4,6 +4,7 @@ import { Hotel, UtensilsCrossed, Landmark, Footprints, Bath, Cross, Car, Map, Se
 import heroAsset from "@/assets/arunachalam-deities.jpeg.asset.json";
 import shivaAsset from "@/assets/arunachalam-shiva.jpeg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
+import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export const Route = createFileRoute("/")({
   head: () => ({
