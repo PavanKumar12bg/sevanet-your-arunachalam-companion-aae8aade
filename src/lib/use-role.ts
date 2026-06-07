@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export type AppRole = "super_admin" | "admin" | "business_owner" | "user";
 
@@ -24,14 +25,19 @@ export function useRole() {
 
     const loadRoles = async (userId: string, email: string | null) => {
       try {
-        const { data } = await supabase.from("user_roles").select("role").eq("user_id", userId);
+        const { data, error } = await withTimeout(
+          supabase.from("user_roles").select("role").eq("user_id", userId),
+          "load user roles",
+        );
+        if (error) throw error;
         const roles = (data ?? []).map((r) => r.role as AppRole);
         finish({
           loading: false, userId, email, roles,
           isAdmin: roles.includes("admin") || roles.includes("super_admin"),
           isBusinessOwner: roles.includes("business_owner") || roles.includes("admin") || roles.includes("super_admin"),
         });
-      } catch {
+      } catch (error) {
+        logClientError("load user roles", error);
         finish({ loading: false, userId, email, roles: [], isAdmin: false, isBusinessOwner: false });
       }
     };
@@ -49,7 +55,7 @@ export function useRole() {
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) finish({ ...empty, loading: false });
-      else loadRoles(session.user.id, session.user.email ?? null);
+      else setTimeout(() => loadRoles(session.user.id, session.user.email ?? null), 0);
     });
 
     return () => { mounted = false; clearTimeout(timer); sub.subscription.unsubscribe(); };
