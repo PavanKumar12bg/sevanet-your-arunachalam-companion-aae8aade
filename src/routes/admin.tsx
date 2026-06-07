@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useRole } from "@/lib/use-role";
 import { useEffect } from "react";
-import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings } from "lucide-react";
+import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath, Music, Search } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — సేవనెట్" }, { name: "robots", content: "noindex" }] }),
@@ -11,7 +11,10 @@ export const Route = createFileRoute("/admin")({
 
 const nav = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/listings", label: "Listings", icon: List },
+  { to: "/admin/listings", label: "All Listings", icon: List },
+  { to: "/admin/listings", label: "Hotels", icon: Hotel, search: { cat: "hotels" } },
+  { to: "/admin/listings", label: "Restaurants", icon: UtensilsCrossed, search: { cat: "restaurants" } },
+  { to: "/admin/listings", label: "Toilets", icon: Bath, search: { cat: "toilets" } },
   { to: "/admin/categories", label: "Categories", icon: FolderTree },
   { to: "/admin/reviews", label: "Reviews", icon: Star },
   { to: "/admin/users", label: "Users", icon: Users },
