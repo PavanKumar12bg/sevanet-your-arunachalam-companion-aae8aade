@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { slugify } from "@/lib/utils";
-import { ImageUploader, type UploadedImage } from "./ImageUploader";
+import { ImageUploader, signImage, type UploadedImage } from "./ImageUploader";
 import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export interface ListingFormData {
