@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { slugify } from "@/lib/utils";
 import { ImageUploader, type UploadedImage } from "./ImageUploader";
+import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export interface ListingFormData {
   id?: string;
@@ -54,23 +55,30 @@ export function ListingForm({ userId, isAdmin, listingId, onSaved }: Props) {
   useEffect(() => {
     if (!listingId) return;
     (async () => {
-      const [{ data: l }, { data: imgs }] = await Promise.all([
-        supabase.from("listings").select("*").eq("id", listingId).maybeSingle(),
-        supabase.from("listing_images").select("url,storage_path").eq("listing_id", listingId).order("sort_order"),
-      ]);
-      if (l) {
-        setForm({
-          id: l.id, title: l.title, slug: l.slug, category_id: l.category_id,
-          short_description: l.short_description ?? "", full_description: l.full_description ?? "",
-          address: l.address ?? "", phone: l.phone ?? "", whatsapp: l.whatsapp ?? "",
-          price_range: l.price_range ?? "", latitude: l.latitude, longitude: l.longitude,
-          facilities: (l.facilities ?? []).join(", "), languages: (l.languages ?? []).join(", "),
-          cover_image: l.cover_image ?? "", seo_title: l.seo_title ?? "", seo_description: l.seo_description ?? "",
-          is_featured: l.is_featured, status: l.status,
-        });
+      try {
+        const [{ data: l, error: listingError }, { data: imgs, error: imageError }] = await Promise.all([
+          withTimeout(supabase.from("listings").select("*").eq("id", listingId).maybeSingle(), "load listing editor"),
+          withTimeout(supabase.from("listing_images").select("url,storage_path").eq("listing_id", listingId).order("sort_order"), "load listing images"),
+        ]);
+        if (listingError || imageError) throw listingError || imageError;
+        if (l) {
+          setForm({
+            id: l.id, title: l.title, slug: l.slug, category_id: l.category_id,
+            short_description: l.short_description ?? "", full_description: l.full_description ?? "",
+            address: l.address ?? "", phone: l.phone ?? "", whatsapp: l.whatsapp ?? "",
+            price_range: l.price_range ?? "", latitude: l.latitude, longitude: l.longitude,
+            facilities: (l.facilities ?? []).join(", "), languages: (l.languages ?? []).join(", "),
+            cover_image: l.cover_image ?? "", seo_title: l.seo_title ?? "", seo_description: l.seo_description ?? "",
+            is_featured: l.is_featured, status: l.status,
+          });
+        }
+        setImages((imgs ?? []).filter((i) => i.storage_path).map((i) => ({ url: i.url, storage_path: i.storage_path! })));
+      } catch (error) {
+        logClientError("load listing editor", error);
+        toast.error("Listing could not be loaded. Please refresh and try again.");
+      } finally {
+        setLoading(false);
       }
-      setImages((imgs ?? []).filter((i) => i.storage_path).map((i) => ({ url: i.url, storage_path: i.storage_path! })));
-      setLoading(false);
     })();
   }, [listingId]);
 
