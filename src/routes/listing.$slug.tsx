@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { signImage } from "@/components/ImageUploader";
 import { Phone, MessageCircle, MapPin, Navigation, Star } from "lucide-react";
 
 export const Route = createFileRoute("/listing/$slug")({
