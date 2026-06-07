@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { signImage } from "@/components/ImageUploader";
 import { Phone, MessageCircle, MapPin, Navigation, Star } from "lucide-react";
 
 export const Route = createFileRoute("/listing/$slug")({
@@ -25,7 +26,11 @@ function ListingDetail() {
         supabase.from("listing_images").select("*").eq("listing_id", data.id).order("sort_order"),
         supabase.from("reviews").select("id,rating,comment,created_at,user_id,profiles(full_name)").eq("listing_id", data.id).eq("status", "approved").order("created_at", { ascending: false }).limit(20),
       ]);
-      setImages(imgs ?? []);
+      const signed = await Promise.all((imgs ?? []).map(async (i: any) => ({
+        ...i,
+        url: i.storage_path ? ((await signImage("listings", i.storage_path)) || i.url) : i.url,
+      })));
+      setImages(signed);
       setReviews(revs ?? []);
       setLoading(false);
     })();

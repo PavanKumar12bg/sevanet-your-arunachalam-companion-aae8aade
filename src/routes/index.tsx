@@ -125,7 +125,7 @@ function Home() {
               <Link key={l.id} to="/listing/$slug" params={{ slug: l.slug }} className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-accent transition-all hover:-translate-y-1 shadow-elegant">
                 <div className="aspect-[4/3] bg-muted overflow-hidden">
                   {l.cover_image
-                    ? <img src={l.cover_image} alt={l.title} className="h-full w-full object-cover group-hover:scale-105 transition-transform" />
+                    ? <img src={l.cover_image} alt={l.title} onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }} className="h-full w-full object-cover group-hover:scale-105 transition-transform" />
                     : <div className="h-full w-full bg-gradient-flame opacity-30" />}
                 </div>
                 <div className="p-4">
