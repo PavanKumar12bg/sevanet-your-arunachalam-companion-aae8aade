@@ -5,6 +5,7 @@ import { MapPin, Star } from "lucide-react";
 import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export const Route = createFileRoute("/listings")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "సేవలు — సేవనెట్" },
