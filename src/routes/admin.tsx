@@ -56,7 +56,7 @@ function AdminLayout() {
           })}
         </nav>
       </aside>
-      <section className="min-w-0"><Outlet /></section>
+      <section className="min-w-0"><ErrorBoundary label="admin"><Outlet /></ErrorBoundary></section>
     </div>
   );
 }
