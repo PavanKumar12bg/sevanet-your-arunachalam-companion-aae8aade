@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { LogOut } from "lucide-react";
 import { toast } from "sonner";
+import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export function SiteHeader() {
   const [user, setUser] = useState<User | null>(null);
@@ -14,11 +15,17 @@ export function SiteHeader() {
     const sync = async (u: User | null) => {
       setUser(u);
       if (!u) { setRoles([]); return; }
-      const { data } = await supabase.from("user_roles").select("role").eq("user_id", u.id);
-      setRoles((data ?? []).map((r: any) => r.role));
+      try {
+        const { data, error } = await withTimeout(supabase.from("user_roles").select("role").eq("user_id", u.id), "header roles");
+        if (error) throw error;
+        setRoles((data ?? []).map((r: any) => r.role));
+      } catch (error) {
+        logClientError("header roles", error);
+        setRoles([]);
+      }
     };
-    supabase.auth.getSession().then(({ data }) => sync(data.session?.user ?? null));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => sync(s?.user ?? null));
+    supabase.auth.getSession().then(({ data }) => sync(data.session?.user ?? null)).catch((error) => logClientError("header session", error));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setTimeout(() => sync(s?.user ?? null), 0));
     return () => sub.subscription.unsubscribe();
   }, []);
 
