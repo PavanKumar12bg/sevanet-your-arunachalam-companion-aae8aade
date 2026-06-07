@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useRole } from "@/lib/use-role";
 import { useEffect } from "react";
-import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath, Music, Search } from "lucide-react";
+import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — సేవనెట్" }, { name: "robots", content: "noindex" }] }),
@@ -9,17 +9,18 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const nav = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/listings", label: "All Listings", icon: List },
-  { to: "/admin/listings", label: "Hotels", icon: Hotel, search: { cat: "hotels" } },
-  { to: "/admin/listings", label: "Restaurants", icon: UtensilsCrossed, search: { cat: "restaurants" } },
-  { to: "/admin/listings", label: "Toilets", icon: Bath, search: { cat: "toilets" } },
-  { to: "/admin/categories", label: "Categories", icon: FolderTree },
-  { to: "/admin/reviews", label: "Reviews", icon: Star },
-  { to: "/admin/users", label: "Users", icon: Users },
-  { to: "/admin/businesses", label: "Businesses", icon: Briefcase },
-  { to: "/admin/settings", label: "Settings", icon: Settings },
+type NavItem = { key: string; to: string; label: string; icon: any; exact?: boolean; search?: Record<string, string> };
+const nav: NavItem[] = [
+  { key: "dash", to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { key: "all", to: "/admin/listings", label: "All Listings", icon: List },
+  { key: "hotels", to: "/listings", label: "Hotels", icon: Hotel, search: { category: "hotels" } },
+  { key: "restaurants", to: "/listings", label: "Restaurants", icon: UtensilsCrossed, search: { category: "restaurants" } },
+  { key: "toilets", to: "/listings", label: "Toilets", icon: Bath, search: { category: "toilets" } },
+  { key: "cats", to: "/admin/categories", label: "Categories", icon: FolderTree },
+  { key: "reviews", to: "/admin/reviews", label: "Reviews", icon: Star },
+  { key: "users", to: "/admin/users", label: "Users", icon: Users },
+  { key: "biz", to: "/admin/businesses", label: "Businesses", icon: Briefcase },
+  { key: "settings", to: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 function AdminLayout() {
