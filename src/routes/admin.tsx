@@ -2,6 +2,7 @@ import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tan
 import { useRole } from "@/lib/use-role";
 import { useEffect } from "react";
 import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath } from "lucide-react";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — సేవనెట్" }, { name: "robots", content: "noindex" }] }),
