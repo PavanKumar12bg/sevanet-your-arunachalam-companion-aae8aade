@@ -46,9 +46,9 @@ function AdminLayout() {
         <div className="px-2 pb-3 font-display text-lg text-gradient-gold">Admin</div>
         <nav className="flex flex-col gap-1">
           {nav.map((n) => {
-            const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
+            const active = n.exact ? pathname === n.to : pathname === n.to && !n.search;
             return (
-              <Link key={n.to} to={n.to} className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${active ? "bg-accent/15 text-accent" : "text-foreground hover:bg-muted/50"}`}>
+              <Link key={n.key} to={n.to as any} search={n.search as any} className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${active ? "bg-accent/15 text-accent" : "text-foreground hover:bg-muted/50"}`}>
                 <n.icon className="h-4 w-4" /> {n.label}
               </Link>
             );
