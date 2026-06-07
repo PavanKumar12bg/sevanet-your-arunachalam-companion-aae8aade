@@ -19,13 +19,17 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error }: { error: Error }) {
+function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+  console.error(error);
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="text-center max-w-md">
         <h1 className="text-2xl font-display text-accent">ఏదో తప్పు జరిగింది</h1>
         <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
-        <a href="/" className="mt-6 inline-block rounded-full bg-gradient-gold px-5 py-2 text-gold-foreground">హోమ్</a>
+        <div className="mt-6 flex justify-center gap-2">
+          <button onClick={reset} className="rounded-full border border-border px-5 py-2 text-sm hover:border-accent">మళ్ళీ ప్రయత్నించండి</button>
+          <a href="/" className="inline-block rounded-full bg-gradient-gold px-5 py-2 text-gold-foreground">హోమ్</a>
+        </div>
       </div>
     </div>
   );

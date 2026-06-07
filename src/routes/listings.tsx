@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { MapPin, Star } from "lucide-react";
+import { logClientError, withTimeout } from "@/lib/safe-query";
 
 export const Route = createFileRoute("/listings")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "సేవలు — సేవనెట్" },
@@ -27,7 +29,12 @@ function ListingsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.from("categories").select("id,slug,name_te").eq("is_active", true).order("sort_order").then(({ data }) => setCats(data ?? []));
+    withTimeout(supabase.from("categories").select("id,slug,name_te").eq("is_active", true).order("sort_order"), "load categories")
+      .then(({ data, error }) => {
+        if (error) throw error;
+        setCats(data ?? []);
+      })
+      .catch((error) => logClientError("load categories", error));
   }, []);
 
   useEffect(() => {
@@ -36,9 +43,16 @@ function ListingsPage() {
       let qb = supabase.from("listings").select("id,title,slug,short_description,cover_image,address,rating_avg,rating_count,category_id,categories!inner(slug)").eq("status", "published").order("is_featured", { ascending: false }).limit(60);
       if (category) qb = qb.eq("categories.slug", category);
       if (q) qb = qb.or(`title.ilike.%${q}%,short_description.ilike.%${q}%`);
-      const { data } = await qb;
-      setItems((data as any) ?? []);
-      setLoading(false);
+      try {
+        const { data, error } = await withTimeout(qb, "load public listings");
+        if (error) throw error;
+        setItems((data as any) ?? []);
+      } catch (error) {
+        logClientError("load public listings", error);
+        setItems([]);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, [category, q]);
 
