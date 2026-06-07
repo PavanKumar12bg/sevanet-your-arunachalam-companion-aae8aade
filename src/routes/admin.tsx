@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useRole } from "@/lib/use-role";
 import { useEffect } from "react";
-import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings } from "lucide-react";
+import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — సేవనెట్" }, { name: "robots", content: "noindex" }] }),
@@ -9,14 +9,18 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const nav = [
-  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { to: "/admin/listings", label: "Listings", icon: List },
-  { to: "/admin/categories", label: "Categories", icon: FolderTree },
-  { to: "/admin/reviews", label: "Reviews", icon: Star },
-  { to: "/admin/users", label: "Users", icon: Users },
-  { to: "/admin/businesses", label: "Businesses", icon: Briefcase },
-  { to: "/admin/settings", label: "Settings", icon: Settings },
+type NavItem = { key: string; to: string; label: string; icon: any; exact?: boolean; search?: Record<string, string> };
+const nav: NavItem[] = [
+  { key: "dash", to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { key: "all", to: "/admin/listings", label: "All Listings", icon: List },
+  { key: "hotels", to: "/listings", label: "Hotels", icon: Hotel, search: { category: "hotels" } },
+  { key: "restaurants", to: "/listings", label: "Restaurants", icon: UtensilsCrossed, search: { category: "restaurants" } },
+  { key: "toilets", to: "/listings", label: "Toilets", icon: Bath, search: { category: "toilets" } },
+  { key: "cats", to: "/admin/categories", label: "Categories", icon: FolderTree },
+  { key: "reviews", to: "/admin/reviews", label: "Reviews", icon: Star },
+  { key: "users", to: "/admin/users", label: "Users", icon: Users },
+  { key: "biz", to: "/admin/businesses", label: "Businesses", icon: Briefcase },
+  { key: "settings", to: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 function AdminLayout() {
@@ -42,9 +46,9 @@ function AdminLayout() {
         <div className="px-2 pb-3 font-display text-lg text-gradient-gold">Admin</div>
         <nav className="flex flex-col gap-1">
           {nav.map((n) => {
-            const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
+            const active = n.exact ? pathname === n.to : pathname === n.to && !n.search;
             return (
-              <Link key={n.to} to={n.to} className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${active ? "bg-accent/15 text-accent" : "text-foreground hover:bg-muted/50"}`}>
+              <Link key={n.key} to={n.to as any} search={n.search as any} className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm ${active ? "bg-accent/15 text-accent" : "text-foreground hover:bg-muted/50"}`}>
                 <n.icon className="h-4 w-4" /> {n.label}
               </Link>
             );
