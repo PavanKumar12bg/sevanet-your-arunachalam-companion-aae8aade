@@ -70,7 +70,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">
         <SiteHeader />
-        <main className="flex-1"><Outlet /></main>
+        <main className="flex-1">
+          <ErrorBoundary label="route">
+            <Outlet />
+          </ErrorBoundary>
+        </main>
         <SiteFooter />
         <AudioPlayer />
         <Toaster theme="dark" position="top-center" />
