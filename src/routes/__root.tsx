@@ -6,6 +6,7 @@ import { SiteHeader } from "../components/SiteHeader";
 import { SiteFooter } from "../components/SiteFooter";
 import { AudioPlayer } from "../components/AudioPlayer";
 import { Toaster } from "sonner";
+import { ErrorBoundary } from "../components/ErrorBoundary";
 
 function NotFoundComponent() {
   return (
