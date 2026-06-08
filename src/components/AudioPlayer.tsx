@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { audioFocus } from "@/lib/audio-focus";
 
 // Global, persistent background chanting. Mounted once in __root, never unmounts.
 // Survives login/logout/route changes because it lives in the root layout and

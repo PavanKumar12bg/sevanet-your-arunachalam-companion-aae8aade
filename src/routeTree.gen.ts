@@ -13,6 +13,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ListingsRouteImport } from './routes/listings'
+import { Route as GirivalamTrackerRouteImport } from './routes/girivalam-tracker'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
@@ -49,6 +50,11 @@ const LoginRoute = LoginRouteImport.update({
 const ListingsRoute = ListingsRouteImport.update({
   id: '/listings',
   path: '/listings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GirivalamTrackerRoute = GirivalamTrackerRouteImport.update({
+  id: '/girivalam-tracker',
+  path: '/girivalam-tracker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
+  '/girivalam-tracker': typeof GirivalamTrackerRoute
   '/listings': typeof ListingsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/account': typeof AccountRoute
   '/forgot-password': typeof ForgotPasswordRoute
+  '/girivalam-tracker': typeof GirivalamTrackerRoute
   '/listings': typeof ListingsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
@@ -189,6 +197,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/admin': typeof AdminRouteWithChildren
   '/forgot-password': typeof ForgotPasswordRoute
+  '/girivalam-tracker': typeof GirivalamTrackerRoute
   '/listings': typeof ListingsRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
@@ -214,6 +223,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/forgot-password'
+    | '/girivalam-tracker'
     | '/listings'
     | '/login'
     | '/map'
@@ -236,6 +246,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/account'
     | '/forgot-password'
+    | '/girivalam-tracker'
     | '/listings'
     | '/login'
     | '/map'
@@ -259,6 +270,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/forgot-password'
+    | '/girivalam-tracker'
     | '/listings'
     | '/login'
     | '/map'
@@ -283,6 +295,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRouteWithChildren
   ForgotPasswordRoute: typeof ForgotPasswordRoute
+  GirivalamTrackerRoute: typeof GirivalamTrackerRoute
   ListingsRoute: typeof ListingsRoute
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
@@ -321,6 +334,13 @@ declare module '@tanstack/react-router' {
       path: '/listings'
       fullPath: '/listings'
       preLoaderRoute: typeof ListingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/girivalam-tracker': {
+      id: '/girivalam-tracker'
+      path: '/girivalam-tracker'
+      fullPath: '/girivalam-tracker'
+      preLoaderRoute: typeof GirivalamTrackerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -485,6 +505,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRoute,
   AdminRoute: AdminRouteWithChildren,
   ForgotPasswordRoute: ForgotPasswordRoute,
+  GirivalamTrackerRoute: GirivalamTrackerRoute,
   ListingsRoute: ListingsRoute,
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
