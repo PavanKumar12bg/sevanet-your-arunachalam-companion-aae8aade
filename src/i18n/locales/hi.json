@@ -1,0 +1,45 @@
+{
+  "brand": { "name": "सेवानेट", "tagline": "अरुणाचलम तीर्थयात्रियों के लिए साथी" },
+  "nav": {
+    "listings": "सेवाएँ", "map": "नक्शा", "tracker": "गिरिवलम ट्रैकर", "about": "हमारे बारे में",
+    "admin": "Admin", "business": "Business", "account": "खाता",
+    "login": "लॉगिन", "register": "साइन अप", "logout": "लॉगआउट", "language": "भाषा"
+  },
+  "home": {
+    "badge": "ॐ नमः शिवाय · अरुणाचलम",
+    "subhead": "होटल · भोजन · धर्मशालाएँ · अस्पताल · नक्शे — एक ही जगह",
+    "searchPlaceholder": "होटल, रेस्तरां, मंदिर...",
+    "search": "खोजें",
+    "featured": "विशेष सेवाएँ", "featuredSub": "भक्तों द्वारा सबसे अधिक चुनी गईं",
+    "viewAll": "सभी देखें →",
+    "noListings": "अभी कोई सेवा नहीं। जल्द ही उपलब्ध।",
+    "trackerTitle": "गिरिवलम GPS ट्रैकर",
+    "trackerDesc": "अरुणाचल गिरिवलम यात्रा को GPS के माध्यम से लाइव ट्रैक करें।",
+    "templeKicker": "अरुणाचल माहात्म्य",
+    "templeTitle": "अग्नि लिंग क्षेत्र",
+    "templeBody": "पंचभूत लिंगों में अग्नि तत्व अरुणाचलम में विराजमान है। भक्तों का विश्वास है कि गिरिवलम से जन्म-जन्म के पाप मिट जाते हैं।",
+    "templeCta": "गिरिवलम नक्शा"
+  },
+  "quick": {
+    "hotels": "होटल", "restaurants": "भोजन", "dharmashalas": "धर्मशालाएँ",
+    "girivalam": "गिरिवलम", "bath": "स्नान", "hospitals": "अस्पताल",
+    "autos": "ऑटो", "map": "नक्शा"
+  },
+  "tracker": {
+    "title": "गिरिवलम GPS ट्रैकर",
+    "subtitle": "स्वचालित ऑडियो गाइड · 14 km · 8 लिंगम",
+    "pause": "⏸ रोकें", "resume": "▶ जारी रखें", "calibrate": "🎯 कैलिब्रेट",
+    "completed": "पूर्ण", "remaining": "शेष दूरी", "progress": "प्रगति",
+    "nextLingam": "वर्तमान लिंगम", "distance": "दूरी",
+    "speed": "गति", "elapsed": "बीता समय", "lingams": "लिंगम",
+    "reset": "रीसेट", "complete": "गिरिवलम पूर्ण", "startNew": "नया गिरिवलम शुरू करें",
+    "gpsWeak": "GPS सिग्नल कमज़ोर", "paused": "ट्रैकिंग रुकी हुई है",
+    "gpsError": "GPS त्रुटि। कृपया लोकेशन अनुमति दें।",
+    "syncing": "☁️ सिंक हो रहा है…", "syncReady": "☁️ Cloud sync ready",
+    "syncedAt": "☁️ सिंक हुआ {{time}}", "offline": "💾 ऑफलाइन। सिंक के लिए लॉगिन करें।",
+    "playAudio": "🔊 तेलुगु ऑडियो गाइड",
+    "distanceFromYou": "आपसे दूरी",
+    "footer": "ॐ नमः शिवाय · भक्ति से चलें"
+  },
+  "common": { "tryAgain": "पुनः प्रयास", "home": "होम", "loading": "लोड हो रहा है..." }
+}

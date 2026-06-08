@@ -1,0 +1,12 @@
+{
+  "name": "SevaNet",
+  "short_name": "SevaNet",
+  "description": "Telugu Pilgrim Companion for Arunachalam Devotees",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a0d0a",
+  "theme_color": "#c2410c",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

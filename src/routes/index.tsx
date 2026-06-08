@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Hotel, UtensilsCrossed, Landmark, Footprints, Bath, Cross, Car, Map, Search } from "lucide-react";
 import heroAsset from "@/assets/arunachalam-deities.jpeg.asset.json";
 import shivaAsset from "@/assets/arunachalam-shiva.jpeg.asset.json";
@@ -9,27 +10,28 @@ import { logClientError, withTimeout } from "@/lib/safe-query";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "సేవనెట్ — తెలుగు భక్తుల కోసం అరుణాచల సేవా వేదిక" },
-      { name: "description", content: "అరుణాచల యాత్రకు హోటల్స్, భోజనం, ధర్మశాలలు, మ్యాప్‌లు." },
+      { title: "SevaNet – Telugu Pilgrim Companion" },
+      { name: "description", content: "SevaNet (సేవనెట్) — Telugu pilgrim companion for Arunachalam: hotels, food, dharmashalas, hospitals, maps & Girivalam GPS tracker." },
     ],
   }),
   component: Home,
 });
 
-const QUICK = [
-  { slug: "hotels", te: "హోటల్స్", icon: Hotel },
-  { slug: "restaurants", te: "భోజనం", icon: UtensilsCrossed },
-  { slug: "dharmashalas", te: "ధర్మశాలలు", icon: Landmark },
-  { slug: "girivalam", te: "గిరివలం", icon: Footprints, href: "/map" },
-  { slug: "bath", te: "స్నానం", icon: Bath },
-  { slug: "hospitals", te: "హాస్పిటల్", icon: Cross },
-  { slug: "autos", te: "ఆటో", icon: Car },
-  { slug: "map", te: "మ్యాప్", icon: Map, href: "/map" },
+const QUICK: ReadonlyArray<{ slug: string; key: string; icon: any; href?: string }> = [
+  { slug: "hotels", key: "hotels", icon: Hotel },
+  { slug: "restaurants", key: "restaurants", icon: UtensilsCrossed },
+  { slug: "dharmashalas", key: "dharmashalas", icon: Landmark },
+  { slug: "girivalam", key: "girivalam", icon: Footprints, href: "/map" },
+  { slug: "bath", key: "bath", icon: Bath },
+  { slug: "hospitals", key: "hospitals", icon: Cross },
+  { slug: "autos", key: "autos", icon: Car },
+  { slug: "map", key: "map", icon: Map, href: "/map" },
 ];
 
 type Featured = { id: string; title: string; slug: string; short_description: string | null; cover_image: string | null; rating_avg: number | null };
 
 function Home() {
+  const { t } = useTranslation();
   const [featured, setFeatured] = useState<Featured[]>([]);
   const [q, setQ] = useState("");
 
@@ -62,35 +64,35 @@ function Home() {
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src={heroAsset.url} alt="అరుణాచల దేవతలు" className="h-full w-full object-cover opacity-50" />
+          <img src={heroAsset.url} alt="అరుణాచల దేవతలు" className="sn-hero-bg h-full w-full object-cover opacity-50" />
           <div className="absolute inset-0 bg-gradient-hero" />
         </div>
         <div className="container mx-auto px-4 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
-          <div className="inline-block rounded-full border border-accent/40 bg-background/40 px-4 py-1 text-xs tracking-widest text-accent backdrop-blur">ఓం నమః శివాయ · అరుణాచలం</div>
-          <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-gradient-gold">సేవనెట్</h1>
-          <p className="mt-4 text-lg md:text-xl text-foreground/90 max-w-2xl mx-auto">తెలుగు భక్తుల కోసం అరుణాచల సేవా వేదిక</p>
-          <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">హోటల్స్ · భోజనం · ధర్మశాలలు · దవాఖానాలు · మ్యాప్‌లు — ఒకే చోట</p>
+          <div className="sn-reveal sn-reveal-1 inline-block rounded-full border border-accent/40 bg-background/40 px-4 py-1 text-xs tracking-widest text-accent backdrop-blur">{t("home.badge")}</div>
+          <h1 className="sn-reveal sn-reveal-2 mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-gradient-gold">{t("brand.name")}</h1>
+          <p className="sn-reveal sn-reveal-2 mt-4 text-lg md:text-xl text-foreground/90 max-w-2xl mx-auto">{t("brand.tagline")}</p>
+          <p className="sn-reveal sn-reveal-3 mt-2 text-sm text-muted-foreground max-w-xl mx-auto">{t("home.subhead")}</p>
 
           <form
             onSubmit={(e) => { e.preventDefault(); window.location.href = `/listings?q=${encodeURIComponent(q)}`; }}
-            className="mt-8 mx-auto max-w-xl flex items-center gap-2 rounded-full border border-accent/40 bg-card/70 backdrop-blur p-1.5 shadow-elegant"
+            className="sn-reveal sn-reveal-3 mt-8 mx-auto max-w-xl flex items-center gap-2 rounded-full border border-accent/40 bg-card/70 backdrop-blur p-1.5 shadow-elegant"
           >
             <Search className="h-5 w-5 ml-3 text-muted-foreground" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="హోటల్, రెస్టారెంట్, ఆలయం..."
+              placeholder={t("home.searchPlaceholder")}
               className="flex-1 bg-transparent py-2 outline-none placeholder:text-muted-foreground"
             />
-            <button type="submit" className="rounded-full bg-gradient-gold px-5 py-2 text-sm font-medium text-gold-foreground">వెతకండి</button>
+            <button type="submit" className="rounded-full bg-gradient-gold px-5 py-2 text-sm font-medium text-gold-foreground">{t("home.search")}</button>
           </form>
         </div>
       </section>
 
       {/* Quick Actions */}
       <section className="container mx-auto px-4 -mt-8 relative z-10">
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-          {QUICK.map(({ slug, te, icon: Icon, href }) => (
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-3 sn-reveal sn-reveal-4">
+          {QUICK.map(({ slug, key, icon: Icon, href }) => (
             <Link
               key={slug}
               to={href ?? "/listings"}
@@ -100,7 +102,7 @@ function Home() {
               <div className="h-11 w-11 rounded-xl bg-gradient-flame/80 flex items-center justify-center group-hover:shadow-glow transition-shadow">
                 <Icon className="h-5 w-5 text-gold" />
               </div>
-              <span className="text-xs text-center font-medium">{te}</span>
+              <span className="text-xs text-center font-medium">{t(`quick.${key}`)}</span>
             </Link>
           ))}
         </div>
@@ -115,8 +117,8 @@ function Home() {
           <div className="flex items-start gap-4">
             <div className="h-14 w-14 shrink-0 rounded-2xl bg-gradient-gold flex items-center justify-center text-2xl shadow-glow group-hover:scale-110 transition-transform">🕉️</div>
             <div className="flex-1">
-              <h3 className="font-display text-2xl md:text-3xl text-gradient-gold">గిరివలం GPS ట్రాకర్</h3>
-              <p className="mt-2 text-sm md:text-base text-muted-foreground">అరుణాచల గిరివలం యాత్రను GPS ద్వారా ప్రత్యక్షంగా ట్రాక్ చేయండి.</p>
+              <h3 className="font-display text-2xl md:text-3xl text-gradient-gold">{t("home.trackerTitle")}</h3>
+              <p className="mt-2 text-sm md:text-base text-muted-foreground">{t("home.trackerDesc")}</p>
             </div>
             <div className="text-accent text-2xl">→</div>
           </div>
@@ -127,14 +129,14 @@ function Home() {
       <section className="container mx-auto px-4 py-16">
         <div className="flex items-end justify-between mb-6">
           <div>
-            <h2 className="font-display text-3xl text-accent">ప్రముఖ సేవలు</h2>
-            <p className="text-muted-foreground text-sm mt-1">భక్తుల ద్వారా ఎక్కువగా ఎంచుకున్నవి</p>
+            <h2 className="font-display text-3xl text-accent">{t("home.featured")}</h2>
+            <p className="text-muted-foreground text-sm mt-1">{t("home.featuredSub")}</p>
           </div>
-          <Link to="/listings" className="text-sm text-accent hover:underline">అన్నీ చూడండి →</Link>
+          <Link to="/listings" className="text-sm text-accent hover:underline">{t("home.viewAll")}</Link>
         </div>
         {featured.length === 0 ? (
           <div className="rounded-2xl border border-border bg-card/40 p-12 text-center text-muted-foreground">
-            ఇంకా సేవలు జోడించబడలేదు. త్వరలో అందుబాటులో ఉంటాయి.
+            {t("home.noListings")}
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-3">
@@ -162,12 +164,10 @@ function Home() {
             <img src={shivaAsset.url} alt="అరుణాచలేశ్వర" className="h-full w-full object-cover" />
           </div>
           <div className="p-8 md:p-12">
-            <div className="text-xs tracking-widest text-accent uppercase">అరుణాచల మహాత్మ్యం</div>
-            <h2 className="mt-3 font-display text-3xl md:text-4xl text-gradient-gold">అగ్ని లింగ క్షేత్రం</h2>
-            <p className="mt-4 text-muted-foreground leading-relaxed">
-              పంచభూత లింగాలలో అగ్ని తత్త్వం అరుణాచలంలో వెలసింది. గిరివలం చేస్తే జన్మ జన్మ పాపాలు తొలగిపోతాయని భక్తుల విశ్వాసం.
-            </p>
-            <Link to="/map" className="mt-6 inline-block rounded-full bg-gradient-gold px-5 py-2 text-sm font-medium text-gold-foreground">గిరివలం మ్యాప్</Link>
+            <div className="text-xs tracking-widest text-accent uppercase">{t("home.templeKicker")}</div>
+            <h2 className="mt-3 font-display text-3xl md:text-4xl text-gradient-gold">{t("home.templeTitle")}</h2>
+            <p className="mt-4 text-muted-foreground leading-relaxed">{t("home.templeBody")}</p>
+            <Link to="/map" className="mt-6 inline-block rounded-full bg-gradient-gold px-5 py-2 text-sm font-medium text-gold-foreground">{t("home.templeCta")}</Link>
           </div>
         </div>
       </section>

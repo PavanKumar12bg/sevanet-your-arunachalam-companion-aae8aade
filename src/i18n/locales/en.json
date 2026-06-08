@@ -1,0 +1,45 @@
+{
+  "brand": { "name": "SevaNet", "tagline": "Telugu Pilgrim Companion for Arunachalam Devotees" },
+  "nav": {
+    "listings": "Listings", "map": "Map", "tracker": "Girivalam Tracker", "about": "About",
+    "admin": "Admin", "business": "Business", "account": "Account",
+    "login": "Login", "register": "Sign up", "logout": "Logout", "language": "Language"
+  },
+  "home": {
+    "badge": "Om Namah Shivaya · Arunachalam",
+    "subhead": "Hotels · Food · Dharmashalas · Hospitals · Maps — all in one place",
+    "searchPlaceholder": "Hotel, restaurant, temple...",
+    "search": "Search",
+    "featured": "Featured Services", "featuredSub": "Most chosen by devotees",
+    "viewAll": "View all →",
+    "noListings": "No listings yet. Coming soon.",
+    "trackerTitle": "Girivalam GPS Tracker",
+    "trackerDesc": "Track the Arunachala Girivalam pilgrimage live with GPS.",
+    "templeKicker": "Arunachala Mahatmyam",
+    "templeTitle": "The Fire Lingam Kshetra",
+    "templeBody": "Among the five-element lingams, the fire element is enshrined at Arunachalam. Devotees believe Girivalam removes the sins of many lifetimes.",
+    "templeCta": "Open Girivalam Map"
+  },
+  "quick": {
+    "hotels": "Hotels", "restaurants": "Food", "dharmashalas": "Dharmashalas",
+    "girivalam": "Girivalam", "bath": "Bath", "hospitals": "Hospitals",
+    "autos": "Autos", "map": "Map"
+  },
+  "tracker": {
+    "title": "Girivalam GPS Tracker",
+    "subtitle": "Automated audio guide · 14 km · 8 Lingams",
+    "pause": "⏸ Pause", "resume": "▶ Resume", "calibrate": "🎯 Calibrate",
+    "completed": "Completed", "remaining": "Remaining", "progress": "Progress",
+    "nextLingam": "Current Lingam", "distance": "Distance",
+    "speed": "Speed", "elapsed": "Elapsed", "lingams": "Lingams",
+    "reset": "Reset", "complete": "Girivalam Complete", "startNew": "Start New Girivalam",
+    "gpsWeak": "GPS signal weak", "paused": "Tracking paused",
+    "gpsError": "GPS error. Please enable location permission.",
+    "syncing": "☁️ Syncing…", "syncReady": "☁️ Cloud sync ready",
+    "syncedAt": "☁️ Synced {{time}}", "offline": "💾 Offline. Sign in to sync.",
+    "playAudio": "🔊 Play Telugu Audio Guide",
+    "distanceFromYou": "Distance from you",
+    "footer": "Om Namah Shivaya · Walk with devotion"
+  },
+  "common": { "tryAgain": "Try again", "home": "Home", "loading": "Loading..." }
+}
