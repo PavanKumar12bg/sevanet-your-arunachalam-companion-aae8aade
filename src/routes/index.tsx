@@ -106,6 +106,23 @@ function Home() {
         </div>
       </section>
 
+      {/* Girivalam Tracker feature card */}
+      <section className="container mx-auto px-4 pt-12">
+        <Link
+          to="/girivalam-tracker"
+          className="block rounded-3xl border-2 border-accent/40 bg-card/60 backdrop-blur p-6 md:p-8 hover:border-accent hover:-translate-y-0.5 transition-all shadow-elegant group"
+        >
+          <div className="flex items-start gap-4">
+            <div className="h-14 w-14 shrink-0 rounded-2xl bg-gradient-gold flex items-center justify-center text-2xl shadow-glow group-hover:scale-110 transition-transform">🕉️</div>
+            <div className="flex-1">
+              <h3 className="font-display text-2xl md:text-3xl text-gradient-gold">గిరివలం GPS ట్రాకర్</h3>
+              <p className="mt-2 text-sm md:text-base text-muted-foreground">అరుణాచల గిరివలం యాత్రను GPS ద్వారా ప్రత్యక్షంగా ట్రాక్ చేయండి.</p>
+            </div>
+            <div className="text-accent text-2xl">→</div>
+          </div>
+        </Link>
+      </section>
+
       {/* Featured */}
       <section className="container mx-auto px-4 py-16">
         <div className="flex items-end justify-between mb-6">
