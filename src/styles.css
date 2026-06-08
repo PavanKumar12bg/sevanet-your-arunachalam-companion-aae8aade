@@ -63,6 +63,10 @@
   --accent-foreground: oklch(0.18 0.04 30);
   --gold: oklch(0.82 0.17 80);
   --gold-foreground: oklch(0.16 0.04 30);
+  --saffron: oklch(0.72 0.2 55);
+  --maroon: oklch(0.35 0.13 25);
+  --gps: oklch(0.65 0.22 250);
+  --success: oklch(0.7 0.18 145);
   --vermilion: oklch(0.55 0.22 30);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0.02 80);
