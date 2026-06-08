@@ -175,6 +175,42 @@ export type Database = {
           },
         ]
       }
+      girivalam_progress: {
+        Row: {
+          completed_count: number
+          created_at: string
+          distance_m: number
+          ended_at: string | null
+          is_completed: boolean
+          snapshot: Json
+          started_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_count?: number
+          created_at?: string
+          distance_m?: number
+          ended_at?: string | null
+          is_completed?: boolean
+          snapshot?: Json
+          started_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_count?: number
+          created_at?: string
+          distance_m?: number
+          ended_at?: string | null
+          is_completed?: boolean
+          snapshot?: Json
+          started_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       listing_images: {
         Row: {
           caption: string | null

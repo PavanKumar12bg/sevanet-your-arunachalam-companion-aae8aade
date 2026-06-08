@@ -29,6 +29,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
+  --color-saffron: var(--saffron);
+  --color-maroon: var(--maroon);
+  --color-gps: var(--gps);
+  --color-success: var(--success);
   --color-vermilion: var(--vermilion);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
@@ -59,6 +63,10 @@
   --accent-foreground: oklch(0.18 0.04 30);
   --gold: oklch(0.82 0.17 80);
   --gold-foreground: oklch(0.16 0.04 30);
+  --saffron: oklch(0.72 0.2 55);
+  --maroon: oklch(0.35 0.13 25);
+  --gps: oklch(0.65 0.22 250);
+  --success: oklch(0.7 0.18 145);
   --vermilion: oklch(0.55 0.22 30);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0.02 80);
@@ -96,3 +104,17 @@
   .shadow-glow { box-shadow: var(--shadow-glow); }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
 }
+
+@keyframes pulse-gps {
+  0% { box-shadow: 0 0 0 0 oklch(0.65 0.22 250 / 0.7); }
+  70% { box-shadow: 0 0 0 16px oklch(0.65 0.22 250 / 0); }
+  100% { box-shadow: 0 0 0 0 oklch(0.65 0.22 250 / 0); }
+}
+.gps-pulse { animation: pulse-gps 2s ease-out infinite; }
+
+@keyframes celebrate {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.celebrate { animation: celebrate 0.8s ease-out; }

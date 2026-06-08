@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { audioFocus } from "@/lib/audio-focus";
 
 // Global, persistent background chanting. Mounted once in __root, never unmounts.
 // Survives login/logout/route changes because it lives in the root layout and
@@ -47,12 +48,19 @@ export function AudioPlayer() {
     // Auto-restart if audio gets paused by anything (auth flows, tab change, etc.)
     const onPause = () => {
       try {
+        if (audioFocus.isActive()) return; // tracker holds focus; stay paused
         if (localStorage.getItem(CONSENT_KEY) === "1") ensurePlaying();
       } catch {}
     };
     el.addEventListener("pause", onPause);
 
-    // Resume when tab becomes visible again
+    // Coordinate with Girivalam tracker audio: pause while tracker speaks,
+    // resume when its queue drains.
+    const unsubFocus = audioFocus.subscribe((active) => {
+      if (active) { try { el.pause(); } catch {} }
+      else { onPause(); }
+    });
+
     const onVisible = () => { if (!document.hidden) onPause(); };
     document.addEventListener("visibilitychange", onVisible);
 
@@ -62,6 +70,7 @@ export function AudioPlayer() {
       window.removeEventListener("keydown", onGesture);
       el.removeEventListener("pause", onPause);
       document.removeEventListener("visibilitychange", onVisible);
+      unsubFocus();
     };
   }, []);
 

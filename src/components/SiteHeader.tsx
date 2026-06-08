@@ -52,6 +52,7 @@ export function SiteHeader() {
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link to="/listings" className="hover:text-accent transition-colors">సేవలు</Link>
           <Link to="/map" className="hover:text-accent transition-colors">మ్యాప్</Link>
+          <Link to="/girivalam-tracker" className="hover:text-accent transition-colors">గిరివలం ట్రాకర్</Link>
           <Link to="/about" className="hover:text-accent transition-colors">గురించి</Link>
         </nav>
         <div className="flex items-center gap-2 text-sm">
