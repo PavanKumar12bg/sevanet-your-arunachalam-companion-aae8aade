@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const QUICK = [
+const QUICK: ReadonlyArray<{ slug: string; key: string; icon: any; href?: string }> = [
   { slug: "hotels", key: "hotels", icon: Hotel },
   { slug: "restaurants", key: "restaurants", icon: UtensilsCrossed },
   { slug: "dharmashalas", key: "dharmashalas", icon: Landmark },
@@ -26,7 +26,7 @@ const QUICK = [
   { slug: "hospitals", key: "hospitals", icon: Cross },
   { slug: "autos", key: "autos", icon: Car },
   { slug: "map", key: "map", icon: Map, href: "/map" },
-] as const;
+];
 
 type Featured = { id: string; title: string; slug: string; short_description: string | null; cover_image: string | null; rating_avg: number | null };
 
