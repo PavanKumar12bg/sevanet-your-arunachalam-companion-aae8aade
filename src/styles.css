@@ -29,6 +29,10 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
+  --color-saffron: var(--saffron);
+  --color-maroon: var(--maroon);
+  --color-gps: var(--gps);
+  --color-success: var(--success);
   --color-vermilion: var(--vermilion);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
