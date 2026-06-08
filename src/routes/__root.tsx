@@ -7,6 +7,8 @@ import { SiteFooter } from "../components/SiteFooter";
 import { AudioPlayer } from "../components/AudioPlayer";
 import { Toaster } from "sonner";
 import { ErrorBoundary } from "../components/ErrorBoundary";
+import "../i18n";
+import faviconAsset from "@/assets/sevanet-logo.png";
 
 function NotFoundComponent() {
   return (
@@ -41,13 +43,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "సేవనెట్ — తెలుగు భక్తుల కోసం అరుణాచల సేవా వేదిక" },
-      { name: "description", content: "అరుణాచలం యాత్రకు హోటల్స్, భోజనం, ధర్మశాలలు, దవాఖానాలు, మ్యాప్‌లు. తెలుగు భక్తుల కోసం." },
-      { property: "og:title", content: "సేవనెట్ — SevaNet" },
-      { property: "og:description", content: "అరుణాచల యాత్రకు అన్ని సేవలు ఒకే చోట." },
+      { title: "SevaNet – Telugu Pilgrim Companion" },
+      { name: "description", content: "SevaNet (సేవనెట్) — Telugu pilgrim companion for Arunachalam: hotels, food, dharmashalas, hospitals, maps, and live Girivalam GPS tracker." },
+      { name: "application-name", content: "SevaNet" },
+      { name: "apple-mobile-web-app-title", content: "SevaNet" },
+      { name: "theme-color", content: "#c2410c" },
+      { property: "og:title", content: "SevaNet – Telugu Pilgrim Companion" },
+      { property: "og:description", content: "Hotels, food, dharmashalas, hospitals, maps & Girivalam GPS tracker for Arunachalam devotees." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "SevaNet" },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: faviconAsset },
+      { rel: "apple-touch-icon", href: faviconAsset },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "alternate", hrefLang: "te-IN", href: "/" },
+      { rel: "alternate", hrefLang: "hi-IN", href: "/" },
+      { rel: "alternate", hrefLang: "kn-IN", href: "/" },
+      { rel: "alternate", hrefLang: "x-default", href: "/" },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -57,7 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="te">
+    <html lang="te-IN">
       <head><HeadContent /></head>
       <body>{children}<Scripts /></body>
     </html>

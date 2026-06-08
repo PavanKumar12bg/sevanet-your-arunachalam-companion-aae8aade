@@ -5,11 +5,14 @@ import type { User } from "@supabase/supabase-js";
 import { LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { logClientError, withTimeout } from "@/lib/safe-query";
+import { useTranslation } from "react-i18next";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 export function SiteHeader() {
   const [user, setUser] = useState<User | null>(null);
   const [roles, setRoles] = useState<string[]>([]);
   const nav = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const sync = async (u: User | null) => {
@@ -35,7 +38,7 @@ export function SiteHeader() {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) return toast.error(error.message);
-    toast.success("లాగ్ అవుట్ అయ్యారు");
+    toast.success(t("nav.logout"));
     nav({ to: "/" });
   };
 
@@ -45,31 +48,32 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-2">
           <div className="h-9 w-9 rounded-full bg-gradient-gold flex items-center justify-center font-display text-gold-foreground font-bold">ఓం</div>
           <div className="leading-tight">
-            <div className="font-display text-xl text-gradient-gold">సేవనెట్</div>
+            <div className="font-display text-xl text-gradient-gold">{t("brand.name")}</div>
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">SevaNet</div>
           </div>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link to="/listings" className="hover:text-accent transition-colors">సేవలు</Link>
-          <Link to="/map" className="hover:text-accent transition-colors">మ్యాప్</Link>
-          <Link to="/girivalam-tracker" className="hover:text-accent transition-colors">గిరివలం ట్రాకర్</Link>
-          <Link to="/about" className="hover:text-accent transition-colors">గురించి</Link>
+          <Link to="/listings" className="hover:text-accent transition-colors">{t("nav.listings")}</Link>
+          <Link to="/map" className="hover:text-accent transition-colors">{t("nav.map")}</Link>
+          <Link to="/girivalam-tracker" className="hover:text-accent transition-colors">{t("nav.tracker")}</Link>
+          <Link to="/about" className="hover:text-accent transition-colors">{t("nav.about")}</Link>
         </nav>
         <div className="flex items-center gap-2 text-sm">
-          {isAdmin && <Link to="/admin" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">Admin</Link>}
-          {isBiz && <Link to="/business/dashboard" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">Business</Link>}
+          <LanguageSelector />
+          {isAdmin && <Link to="/admin" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">{t("nav.admin")}</Link>}
+          {isBiz && <Link to="/business/dashboard" className="hidden md:inline rounded-full border border-accent/40 px-3 py-1.5 text-xs hover:bg-accent/10">{t("nav.business")}</Link>}
           {user ? (
             <>
-              <Link to="/account" className="rounded-full border border-accent/40 px-4 py-1.5 hover:bg-accent/10">ఖాతా</Link>
-              <button onClick={signOut} title="లాగ్ అవుట్" className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted-foreground hover:border-destructive hover:text-destructive">
+              <Link to="/account" className="rounded-full border border-accent/40 px-4 py-1.5 hover:bg-accent/10">{t("nav.account")}</Link>
+              <button onClick={signOut} title={t("nav.logout")} className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted-foreground hover:border-destructive hover:text-destructive">
                 <LogOut className="h-4 w-4" />
-                <span className="hidden sm:inline">లాగ్ అవుట్</span>
+                <span className="hidden sm:inline">{t("nav.logout")}</span>
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="text-muted-foreground hover:text-foreground">లాగిన్</Link>
-              <Link to="/register" className="rounded-full bg-gradient-gold px-4 py-1.5 text-gold-foreground font-medium">నమోదు</Link>
+              <Link to="/login" className="text-muted-foreground hover:text-foreground">{t("nav.login")}</Link>
+              <Link to="/register" className="rounded-full bg-gradient-gold px-4 py-1.5 text-gold-foreground font-medium">{t("nav.register")}</Link>
             </>
           )}
         </div>
