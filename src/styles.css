@@ -4,8 +4,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Multi-language fonts (Telugu default, English, Hindi, Kannada) */
-@import url('https://fonts.googleapis.com/css2?family=Mandali&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&display=swap');
+/* Multi-language fonts are loaded via <link> tags in src/routes/__root.tsx.
+   Do NOT @import remote URLs here — Lightning CSS resolves @import from the
+   filesystem, which breaks the build. */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
