@@ -524,7 +524,27 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      profiles_public: {
+        Row: {
+          created_at: string | null
+          full_name: string | null
+          id: string | null
+          preferred_language: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          full_name?: string | null
+          id?: string | null
+          preferred_language?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          full_name?: string | null
+          id?: string | null
+          preferred_language?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
