@@ -37,7 +37,7 @@ function ListingDetail() {
         url: i.storage_path ? ((await signImage("listings", i.storage_path)) || i.url) : i.url,
       })));
       setImages(signed);
-      setReviews((revs ?? []).map((r: any) => ({ ...r, profiles: { full_name: nameMap.get(r.user_id) } })));
+      setReviews((revs ?? []).map((r: any) => ({ ...r, profiles: { full_name: nameMap.get(r.user_id) ?? null } })));
       setLoading(false);
     })();
   }, [slug]);
