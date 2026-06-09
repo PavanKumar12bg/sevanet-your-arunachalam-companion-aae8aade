@@ -24,14 +24,20 @@ function ListingDetail() {
       setListing(data);
       const [{ data: imgs }, { data: revs }] = await Promise.all([
         supabase.from("listing_images").select("*").eq("listing_id", data.id).order("sort_order"),
-        supabase.from("reviews").select("id,rating,comment,created_at,user_id,profiles(full_name)").eq("listing_id", data.id).eq("status", "approved").order("created_at", { ascending: false }).limit(20),
+        supabase.from("reviews").select("id,rating,comment,created_at,user_id").eq("listing_id", data.id).eq("status", "approved").order("created_at", { ascending: false }).limit(20),
       ]);
+      const userIds = Array.from(new Set((revs ?? []).map((r: any) => r.user_id).filter((x: any): x is string => !!x)));
+      const nameMap = new Map<string, string>();
+      if (userIds.length) {
+        const { data: profs } = await supabase.from("profiles_public" as any).select("id,full_name").in("id", userIds);
+        for (const p of ((profs ?? []) as unknown as Array<{ id: string; full_name: string | null }>)) if (p.full_name) nameMap.set(p.id, p.full_name);
+      }
       const signed = await Promise.all((imgs ?? []).map(async (i: any) => ({
         ...i,
         url: i.storage_path ? ((await signImage("listings", i.storage_path)) || i.url) : i.url,
       })));
       setImages(signed);
-      setReviews(revs ?? []);
+      setReviews((revs ?? []).map((r: any) => ({ ...r, profiles: { full_name: nameMap.get(r.user_id) ?? null } })));
       setLoading(false);
     })();
   }, [slug]);

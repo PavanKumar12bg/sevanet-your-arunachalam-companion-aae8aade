@@ -21,7 +21,7 @@ function Account() {
       if (!data.user) return nav({ to: "/login" });
       setUser(data.user);
       const [{ data: p }, { data: f }] = await Promise.all([
-        supabase.from("profiles").select("*").eq("id", data.user.id).maybeSingle(),
+        supabase.from("profiles").select("id,full_name,preferred_language,created_at,updated_at").eq("id", data.user.id).maybeSingle(),
         supabase.from("favorites").select("listing_id,listings(title,slug,cover_image)").eq("user_id", data.user.id),
       ]);
       setProfile(p);
