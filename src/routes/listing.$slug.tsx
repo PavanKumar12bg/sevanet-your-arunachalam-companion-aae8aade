@@ -26,7 +26,7 @@ function ListingDetail() {
         supabase.from("listing_images").select("*").eq("listing_id", data.id).order("sort_order"),
         supabase.from("reviews").select("id,rating,comment,created_at,user_id").eq("listing_id", data.id).eq("status", "approved").order("created_at", { ascending: false }).limit(20),
       ]);
-      const userIds = Array.from(new Set((revs ?? []).map((r: any) => r.user_id).filter(Boolean)));
+      const userIds = Array.from(new Set((revs ?? []).map((r: any) => r.user_id).filter((x: any): x is string => !!x)));
       const nameMap = new Map<string, string>();
       if (userIds.length) {
         const { data: profs } = await supabase.from("profiles_public").select("id,full_name").in("id", userIds);
