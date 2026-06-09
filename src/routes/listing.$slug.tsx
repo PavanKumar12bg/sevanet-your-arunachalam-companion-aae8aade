@@ -30,7 +30,7 @@ function ListingDetail() {
       const nameMap = new Map<string, string>();
       if (userIds.length) {
         const { data: profs } = await supabase.from("profiles_public" as any).select("id,full_name").in("id", userIds);
-        for (const p of (profs ?? []) as Array<{ id: string; full_name: string | null }>) if (p.full_name) nameMap.set(p.id, p.full_name);
+        for (const p of ((profs ?? []) as unknown as Array<{ id: string; full_name: string | null }>)) if (p.full_name) nameMap.set(p.id, p.full_name);
       }
       const signed = await Promise.all((imgs ?? []).map(async (i: any) => ({
         ...i,
