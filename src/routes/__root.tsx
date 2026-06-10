@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, Link, createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { SiteHeader } from "../components/SiteHeader";
 import { SiteFooter } from "../components/SiteFooter";
@@ -8,6 +8,7 @@ import { AudioPlayer } from "../components/AudioPlayer";
 import { Toaster } from "sonner";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import "../i18n";
+import i18n, { syncDocumentLanguage } from "../i18n";
 import faviconAsset from "@/assets/sevanet-logo.png";
 
 function NotFoundComponent() {
@@ -89,6 +90,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    let lang = "te";
+    try {
+      lang = localStorage.getItem("sevanet:lang") || navigator.language || "te";
+    } catch {}
+    void i18n.changeLanguage(lang);
+    syncDocumentLanguage(lang);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">

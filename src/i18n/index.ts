@@ -15,6 +15,18 @@ export const SUPPORTED_LANGS = [
 
 export type LangCode = (typeof SUPPORTED_LANGS)[number]["code"];
 
+function normalizeLanguage(lng: string | undefined): LangCode {
+  const code = lng?.split("-")[0] as LangCode | undefined;
+  return SUPPORTED_LANGS.some((l) => l.code === code) ? code! : "te";
+}
+
+export function syncDocumentLanguage(lng: string | undefined = i18n.language) {
+  if (typeof document === "undefined") return;
+  const code = normalizeLanguage(lng);
+  const meta = SUPPORTED_LANGS.find((l) => l.code === code) ?? SUPPORTED_LANGS[0];
+  document.documentElement.setAttribute("lang", meta.htmlLang);
+}
+
 if (!i18n.isInitialized) {
   i18n
     .use(LanguageDetector)
@@ -22,10 +34,11 @@ if (!i18n.isInitialized) {
     .init({
       resources: { te: { translation: te }, en: { translation: en }, hi: { translation: hi }, kn: { translation: kn } },
       fallbackLng: "te",
+      lng: "te",
       supportedLngs: ["te", "hi", "kn", "en"],
       interpolation: { escapeValue: false },
       detection: {
-        order: ["localStorage", "navigator"],
+        order: [],
         lookupLocalStorage: "sevanet:lang",
         caches: ["localStorage"],
       },
@@ -33,14 +46,8 @@ if (!i18n.isInitialized) {
     });
 }
 
-// Keep <html lang> in sync for fonts + a11y + SEO
 if (typeof document !== "undefined") {
-  const apply = (lng: string) => {
-    const meta = SUPPORTED_LANGS.find((l) => l.code === lng) ?? SUPPORTED_LANGS[0];
-    document.documentElement.setAttribute("lang", meta.htmlLang);
-  };
-  apply(i18n.language || "te");
-  i18n.on("languageChanged", apply);
+  i18n.on("languageChanged", syncDocumentLanguage);
 }
 
 export default i18n;
