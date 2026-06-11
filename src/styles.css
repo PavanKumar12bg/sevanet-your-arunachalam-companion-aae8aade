@@ -47,40 +47,40 @@
 
 :root {
   --radius: 0.75rem;
-  /* Temple Gold & Vermilion */
-  --background: oklch(0.16 0.04 35);          /* deep maroon black */
-  --foreground: oklch(0.96 0.03 80);          /* warm cream */
-  --card: oklch(0.20 0.05 30);
-  --card-foreground: oklch(0.96 0.03 80);
-  --popover: oklch(0.20 0.05 30);
-  --popover-foreground: oklch(0.96 0.03 80);
-  --primary: oklch(0.55 0.20 35);             /* vermilion */
-  --primary-foreground: oklch(0.98 0.02 80);
-  --primary-glow: oklch(0.70 0.22 50);
-  --secondary: oklch(0.28 0.06 30);
-  --secondary-foreground: oklch(0.96 0.03 80);
-  --muted: oklch(0.24 0.04 30);
-  --muted-foreground: oklch(0.72 0.05 70);
-  --accent: oklch(0.78 0.16 75);              /* temple gold */
-  --accent-foreground: oklch(0.18 0.04 30);
-  --gold: oklch(0.82 0.17 80);
-  --gold-foreground: oklch(0.16 0.04 30);
-  --saffron: oklch(0.72 0.2 55);
-  --maroon: oklch(0.35 0.13 25);
+  /* Temple Maroon & Gold — locked palette: #1a0a0a / #4a0e0e / #c9a84c / #f5e6c8 */
+  --background: oklch(0.13 0.03 25);          /* #1a0a0a deep maroon-black */
+  --foreground: oklch(0.94 0.04 85);          /* #f5e6c8 cream */
+  --card: oklch(0.20 0.07 25);                /* #2d1010 raised maroon */
+  --card-foreground: oklch(0.94 0.04 85);
+  --popover: oklch(0.20 0.07 25);
+  --popover-foreground: oklch(0.94 0.04 85);
+  --primary: oklch(0.32 0.13 25);             /* #4a0e0e temple maroon */
+  --primary-foreground: oklch(0.94 0.04 85);
+  --primary-glow: oklch(0.45 0.18 30);
+  --secondary: oklch(0.24 0.08 25);
+  --secondary-foreground: oklch(0.94 0.04 85);
+  --muted: oklch(0.22 0.05 25);
+  --muted-foreground: oklch(0.74 0.05 75);
+  --accent: oklch(0.78 0.13 80);              /* #c9a84c temple gold */
+  --accent-foreground: oklch(0.18 0.04 25);
+  --gold: oklch(0.78 0.13 80);
+  --gold-foreground: oklch(0.16 0.04 25);
+  --saffron: oklch(0.72 0.18 55);
+  --maroon: oklch(0.32 0.13 25);
   --gps: oklch(0.65 0.22 250);
   --success: oklch(0.7 0.18 145);
   --vermilion: oklch(0.55 0.22 30);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0.02 80);
-  --border: oklch(0.30 0.06 35 / 60%);
-  --input: oklch(0.25 0.05 30);
-  --ring: oklch(0.78 0.16 75);
+  --border: oklch(0.78 0.13 80 / 22%);
+  --input: oklch(0.25 0.06 25);
+  --ring: oklch(0.78 0.13 80);
 
-  --gradient-hero: linear-gradient(180deg, oklch(0.12 0.04 30 / 0.4), oklch(0.10 0.05 25 / 0.95));
-  --gradient-gold: linear-gradient(135deg, oklch(0.82 0.17 80), oklch(0.65 0.20 50));
-  --gradient-flame: linear-gradient(180deg, oklch(0.65 0.22 50), oklch(0.45 0.20 25));
-  --shadow-glow: 0 0 40px oklch(0.78 0.16 75 / 0.35);
-  --shadow-elegant: 0 20px 60px -20px oklch(0.10 0.05 25 / 0.6);
+  --gradient-hero: linear-gradient(180deg, oklch(0.13 0.04 25 / 0.55), oklch(0.10 0.04 22 / 0.96));
+  --gradient-gold: linear-gradient(135deg, oklch(0.82 0.14 82), oklch(0.62 0.17 55));
+  --gradient-flame: linear-gradient(180deg, oklch(0.55 0.20 40), oklch(0.32 0.13 25));
+  --shadow-glow: 0 0 40px oklch(0.78 0.13 80 / 0.32);
+  --shadow-elegant: 0 24px 60px -24px oklch(0.06 0.04 25 / 0.7);
 }
 
 .dark {
