@@ -1,7 +1,7 @@
 {
   "brand": { "name": "सेवानेट", "tagline": "अरुणाचलम तीर्थयात्रियों के लिए साथी" },
   "nav": {
-    "listings": "सेवाएँ", "map": "नक्शा", "tracker": "गिरिवलम ट्रैकर", "about": "हमारे बारे में",
+    "listings": "सेवाएँ", "map": "नक्शा", "safety": "सुरक्षा", "tracker": "गिरिवलम ट्रैकर", "about": "हमारे बारे में",
     "admin": "Admin", "business": "Business", "account": "खाता",
     "login": "लॉगिन", "register": "साइन अप", "logout": "लॉगआउट", "language": "भाषा"
   },

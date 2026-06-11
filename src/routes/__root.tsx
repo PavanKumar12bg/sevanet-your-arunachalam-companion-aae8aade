@@ -8,7 +8,8 @@ import { AudioPlayer } from "../components/AudioPlayer";
 import { Toaster } from "sonner";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import "../i18n";
-import i18n, { syncDocumentLanguage } from "../i18n";
+import i18n, { safeReadLang, syncDocumentLanguage } from "../i18n";
+import { AnnouncementBar } from "../components/AnnouncementBar";
 import faviconAsset from "@/assets/sevanet-logo.png";
 
 function NotFoundComponent() {
@@ -92,10 +93,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   useEffect(() => {
-    let lang = "te";
-    try {
-      lang = localStorage.getItem("sevanet:lang") || navigator.language || "te";
-    } catch {}
+    const lang = safeReadLang();
     void i18n.changeLanguage(lang);
     syncDocumentLanguage(lang);
   }, []);
@@ -104,6 +102,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col">
         <SiteHeader />
+        <AnnouncementBar />
         <main className="flex-1">
           <ErrorBoundary label="route">
             <Outlet />

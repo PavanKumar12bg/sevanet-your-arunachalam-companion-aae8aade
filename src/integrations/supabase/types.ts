@@ -44,6 +44,36 @@ export type Database = {
         }
         Relationships: []
       }
+      announcements: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          link_url: string | null
+          message: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          message: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          message?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       audio_settings: {
         Row: {
           audio_url: string
@@ -473,6 +503,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      safety_contacts: {
+        Row: {
+          address: string | null
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          name: string
+          phone: string
+          pincode: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          category: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          name: string
+          phone: string
+          pincode?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          name?: string
+          phone?: string
+          pincode?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       seo_settings: {
         Row: {

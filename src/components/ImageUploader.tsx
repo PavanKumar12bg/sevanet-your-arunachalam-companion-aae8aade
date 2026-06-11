@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Upload, X, ImageOff } from "lucide-react";
+import { optimizeToWebp, validateInput, makeWebpFilename } from "@/lib/image-optimize";
 
 export interface UploadedImage {
   url: string;
@@ -17,8 +18,6 @@ interface Props {
   label?: string;
 }
 
-const ACCEPTED = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-const MAX_BYTES = 10 * 1024 * 1024; // 10MB
 const SIGNED_TTL = 60 * 60 * 24 * 365 * 10; // ~10 years
 
 export async function signImage(bucket: string, path: string): Promise<string | null> {
@@ -38,32 +37,27 @@ export function ImageUploader({ bucket, userId, value, onChange, max = 10, label
     }
     setBusy(true);
     const added: UploadedImage[] = [];
-    const t = toast.loading("Uploading...");
+    const t = toast.loading("Optimizing & uploading…");
     try {
       for (const file of Array.from(files)) {
-        if (!ACCEPTED.includes(file.type)) {
-          toast.error(`${file.name}: only JPG, PNG, WEBP`);
-          continue;
-        }
-        if (file.size > MAX_BYTES) {
-          toast.error(`${file.name}: max 10MB`);
-          continue;
-        }
-        const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
-        const path = `${userId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-        const { error } = await supabase.storage.from(bucket).upload(path, file, {
+        const err = validateInput(file);
+        if (err) { toast.error(err); continue; }
+
+        const { file: webp, originalSize, optimizedSize, reductionPct } = await optimizeToWebp(file);
+        const path = `${userId}/${makeWebpFilename()}`;
+
+        const { error } = await supabase.storage.from(bucket).upload(path, webp, {
           cacheControl: "3600",
           upsert: false,
-          contentType: file.type,
+          contentType: "image/webp",
         });
-        if (error) {
-          toast.error(`Upload failed: ${error.message}`);
-          continue;
-        }
+        if (error) { toast.error(`Upload failed: ${error.message}`); continue; }
+
         const signed = await signImage(bucket, path);
-        if (!signed) {
-          toast.error(`Could not generate URL for ${file.name}`);
-          continue;
+        if (!signed) { toast.error(`Could not generate URL for ${file.name}`); continue; }
+
+        if (reductionPct > 0) {
+          console.info(`[image] ${file.name}: ${(originalSize/1024).toFixed(0)}KB → ${(optimizedSize/1024).toFixed(0)}KB (-${reductionPct}%)`);
         }
         added.push({ url: signed, storage_path: path });
       }
@@ -83,13 +77,15 @@ export function ImageUploader({ bucket, userId, value, onChange, max = 10, label
   return (
     <div>
       <label className="text-sm font-medium">{label}</label>
-      <p className="text-xs text-muted-foreground mt-1">JPG, PNG, WEBP · max 10MB</p>
+      <p className="text-xs text-muted-foreground mt-1">JPG, PNG, WEBP, HEIC · max 10MB · auto-converted to WEBP</p>
       <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4">
         {value.map((img) => (
           <div key={img.storage_path} className="relative aspect-square overflow-hidden rounded-lg border border-border bg-muted">
             <img
               src={img.url}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover"
               onError={(e) => {
                 const el = e.currentTarget;
@@ -108,13 +104,13 @@ export function ImageUploader({ bucket, userId, value, onChange, max = 10, label
         {value.length < max && (
           <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-border text-muted-foreground hover:border-accent hover:text-accent">
             <Upload className="h-5 w-5" />
-            <span className="text-xs">{busy ? "Uploading..." : "Add"}</span>
+            <span className="text-xs">{busy ? "Working…" : "Add"}</span>
             <input
               type="file"
-              accept="image/jpeg,image/jpg,image/png,image/webp"
+              accept="image/jpeg,image/jpg,image/png,image/webp,image/heic,image/heif,.heic,.heif"
               multiple
               className="hidden"
-              onChange={(e) => { upload(e.target.files); e.target.value = ""; }}
+              onChange={(e) => { void upload(e.target.files); e.target.value = ""; }}
               disabled={busy}
             />
           </label>

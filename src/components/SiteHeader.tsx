@@ -54,7 +54,7 @@ export function SiteHeader() {
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <Link to="/listings" className="hover:text-accent transition-colors">{t("nav.listings")}</Link>
-          <Link to="/map" className="hover:text-accent transition-colors">{t("nav.map")}</Link>
+          <Link to="/safety" className="hover:text-accent transition-colors">{t("nav.safety")}</Link>
           <Link to="/girivalam-tracker" className="hover:text-accent transition-colors">{t("nav.tracker")}</Link>
           <Link to="/about" className="hover:text-accent transition-colors">{t("nav.about")}</Link>
         </nav>
