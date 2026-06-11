@@ -41,8 +41,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-display: 'Mandali', serif;
-  --font-sans: 'Noto Sans Telugu', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', 'Mandali', serif;
+  --font-sans: 'Work Sans', 'Noto Sans Telugu', system-ui, sans-serif;
 }
 
 :root {
