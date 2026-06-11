@@ -33,8 +33,8 @@ export function AnnouncementBar() {
       role="region"
       aria-label="Announcements"
     >
-      <div className="marquee group overflow-hidden whitespace-nowrap py-2 text-sm text-foreground/90">
-        <div className="marquee-track inline-flex gap-12 px-4 will-change-transform">
+      <div className="marquee group overflow-hidden whitespace-nowrap py-1.5 sm:py-2 text-xs sm:text-sm text-foreground/90">
+        <div className="marquee-track inline-flex gap-8 sm:gap-12 px-3 sm:px-4 will-change-transform">
           {loop.map((a, i) => (
             <span key={`${a.id}-${i}`} className="inline-flex items-center gap-2">
               {a.link_url ? (
