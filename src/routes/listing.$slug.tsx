@@ -110,7 +110,7 @@ function ListingDetail() {
           {listing.phone && <a href={`tel:${listing.phone}`} className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-gold py-3 text-gold-foreground font-medium"><Phone className="h-4 w-4" /> కాల్</a>}
           {listing.whatsapp && <a href={`https://wa.me/${encodeURIComponent(listing.whatsapp.replace(/\D/g, ""))}`} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-accent bg-card py-3 font-medium"><MessageCircle className="h-4 w-4" /> WhatsApp</a>}
           {listing.latitude && listing.longitude && (
-            <a href={`https://www.openstreetmap.org/?mlat=${listing.latitude}&mlon=${listing.longitude}#map=18/${listing.latitude}/${listing.longitude}`} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-border bg-card py-3 font-medium"><Navigation className="h-4 w-4" /> దారి</a>
+            <a href={`https://www.google.com/maps/dir/?api=1&destination=${listing.latitude},${listing.longitude}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl border border-border bg-card py-3 font-medium"><Navigation className="h-4 w-4" /> దారి</a>
           )}
           {listing.languages?.length > 0 && (
             <div className="rounded-2xl border border-border bg-card p-4">
