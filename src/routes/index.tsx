@@ -67,24 +67,24 @@ function Home() {
           <img src={heroAsset.url} alt="అరుణాచల దేవతలు" className="sn-hero-bg h-full w-full object-cover opacity-50" />
           <div className="absolute inset-0 bg-gradient-hero" />
         </div>
-        <div className="container mx-auto px-4 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
-          <div className="sn-reveal sn-reveal-1 inline-block rounded-full border border-accent/40 bg-background/40 px-4 py-1 text-xs tracking-widest text-accent backdrop-blur">{t("home.badge")}</div>
-          <h1 className="sn-reveal sn-reveal-2 mt-6 font-display text-5xl md:text-7xl leading-[1.05] text-gradient-gold">{t("brand.name")}</h1>
-          <p className="sn-reveal sn-reveal-2 mt-4 text-lg md:text-xl text-foreground/90 max-w-2xl mx-auto">{t("brand.tagline")}</p>
+        <div className="container mx-auto px-4 pt-14 pb-12 md:pt-24 md:pb-20 text-center">
+          <div className="sn-reveal sn-reveal-1 inline-block rounded-full border border-accent/40 bg-background/40 px-4 py-1 text-[11px] tracking-[0.25em] uppercase text-accent backdrop-blur">{t("home.badge")}</div>
+          <h1 className="sn-reveal sn-reveal-2 mt-5 font-display text-[2.75rem] leading-[1.05] md:text-7xl text-gradient-gold">{t("brand.name")}</h1>
+          <p className="sn-reveal sn-reveal-2 mt-3 text-base md:text-xl text-foreground/90 max-w-2xl mx-auto">{t("brand.tagline")}</p>
           <p className="sn-reveal sn-reveal-3 mt-2 text-sm text-muted-foreground max-w-xl mx-auto">{t("home.subhead")}</p>
 
           <form
             onSubmit={(e) => { e.preventDefault(); window.location.href = `/listings?q=${encodeURIComponent(q)}`; }}
-            className="sn-reveal sn-reveal-3 mt-8 mx-auto max-w-xl flex items-center gap-2 rounded-full border border-accent/40 bg-card/70 backdrop-blur p-1.5 shadow-elegant"
+            className="sn-reveal sn-reveal-3 mt-7 mx-auto max-w-xl flex items-center gap-2 rounded-full glass-strong p-1.5 shadow-elegant"
           >
-            <Search className="h-5 w-5 ml-3 text-muted-foreground" />
+            <Search className="h-5 w-5 ml-3 text-muted-foreground shrink-0" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={t("home.searchPlaceholder")}
-              className="flex-1 bg-transparent py-2 outline-none placeholder:text-muted-foreground"
+              className="flex-1 min-w-0 bg-transparent py-2 outline-none placeholder:text-muted-foreground text-sm"
             />
-            <button type="submit" className="rounded-full bg-gradient-gold px-5 py-2 text-sm font-medium text-gold-foreground">{t("home.search")}</button>
+            <button type="submit" className="shrink-0 rounded-full bg-gradient-gold px-4 sm:px-5 py-2 text-sm font-medium text-gold-foreground">{t("home.search")}</button>
           </form>
         </div>
       </section>
