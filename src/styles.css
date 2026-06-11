@@ -93,16 +93,22 @@
   html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: 'Noto Sans Telugu', system-ui, sans-serif;
+    font-family: 'Work Sans', 'Noto Sans Telugu', system-ui, sans-serif;
     font-display: swap;
+    -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Instrument Serif', 'Mandali', serif;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
 
-  /* Language-aware font switching — no JS layout shift */
-  html[lang^="en"], html[lang^="en"] body { font-family: 'Inter', system-ui, sans-serif; }
-  html[lang^="hi"], html[lang^="hi"] body { font-family: 'Noto Sans Devanagari', system-ui, sans-serif; }
-  html[lang^="kn"], html[lang^="kn"] body { font-family: 'Noto Sans Kannada', system-ui, sans-serif; }
-  html[lang^="te"], html[lang^="te"] body { font-family: 'Noto Sans Telugu', system-ui, sans-serif; }
+  /* Language-aware body font — Telugu keeps Noto Telugu for readability */
+  html[lang^="te"], html[lang^="te"] body { font-family: 'Noto Sans Telugu', 'Work Sans', system-ui, sans-serif; }
+  html[lang^="te"] h1, html[lang^="te"] h2, html[lang^="te"] h3, html[lang^="te"] h4 { font-family: 'Mandali', 'Instrument Serif', serif; }
+  html[lang^="hi"], html[lang^="hi"] body { font-family: 'Noto Sans Devanagari', 'Work Sans', system-ui, sans-serif; }
+  html[lang^="kn"], html[lang^="kn"] body { font-family: 'Noto Sans Kannada', 'Work Sans', system-ui, sans-serif; }
+  html[lang^="en"], html[lang^="en"] body { font-family: 'Work Sans', system-ui, sans-serif; }
 }
 
 @layer utilities {
@@ -112,6 +118,16 @@
   .bg-gradient-flame { background: var(--gradient-flame); }
   .shadow-glow { box-shadow: var(--shadow-glow); }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .glass {
+    background: color-mix(in oklab, var(--card) 60%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+  }
+  .glass-strong {
+    background: color-mix(in oklab, var(--card) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+  }
 }
 
 @keyframes pulse-gps {
