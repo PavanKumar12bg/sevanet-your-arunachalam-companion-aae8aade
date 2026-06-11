@@ -15,6 +15,7 @@ export const Route = createFileRoute("/girivalam-tracker")({
       { name: "theme-color", content: "#c2410c" },
     ],
   }),
+  ssr: false,
   component: GirivalamTrackerPage,
 });
 
