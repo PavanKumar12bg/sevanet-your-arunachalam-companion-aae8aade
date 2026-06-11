@@ -147,3 +147,18 @@
 @media (prefers-reduced-motion: reduce) {
   .sn-reveal, .sn-hero-bg, .gps-pulse, .celebrate { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* Announcement marquee */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 35s linear infinite;
+}
+@media (hover: hover) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}

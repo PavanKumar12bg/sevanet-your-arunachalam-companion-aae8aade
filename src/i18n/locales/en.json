@@ -1,7 +1,7 @@
 {
   "brand": { "name": "SevaNet", "tagline": "Telugu Pilgrim Companion for Arunachalam Devotees" },
   "nav": {
-    "listings": "Listings", "map": "Map", "tracker": "Girivalam Tracker", "about": "About",
+    "listings": "Listings", "map": "Map", "safety": "Safety", "tracker": "Girivalam Tracker", "about": "About",
     "admin": "Admin", "business": "Business", "account": "Account",
     "login": "Login", "register": "Sign up", "logout": "Logout", "language": "Language"
   },

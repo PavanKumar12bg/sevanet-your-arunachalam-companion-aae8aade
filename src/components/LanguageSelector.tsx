@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
-import { SUPPORTED_LANGS } from "@/i18n";
+import { SUPPORTED_LANGS, safeWriteLang, syncDocumentLanguage } from "@/i18n";
 import { useEffect, useRef, useState } from "react";
 
 export function LanguageSelector() {
@@ -17,6 +17,13 @@ export function LanguageSelector() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
+  const change = (code: string) => {
+    void i18n.changeLanguage(code);
+    safeWriteLang(code);
+    syncDocumentLanguage(code);
+    setOpen(false);
+  };
+
   return (
     <div ref={ref} className="relative">
       <button
@@ -32,7 +39,7 @@ export function LanguageSelector() {
           {SUPPORTED_LANGS.map((l) => (
             <button
               key={l.code}
-              onClick={() => { i18n.changeLanguage(l.code); setOpen(false); }}
+              onClick={() => change(l.code)}
               lang={l.htmlLang}
               className={`block w-full text-left px-3 py-2 text-sm hover:bg-accent/10 transition-colors ${l.code === current.code ? "text-accent font-semibold" : ""}`}
             >

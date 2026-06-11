@@ -1,7 +1,7 @@
 {
   "brand": { "name": "ಸೇವಾನೆಟ್", "tagline": "ಅರುಣಾಚಲ ಯಾತ್ರಿಕರಿಗಾಗಿ ಸಂಗಾತಿ" },
   "nav": {
-    "listings": "ಸೇವೆಗಳು", "map": "ನಕ್ಷೆ", "tracker": "ಗಿರಿವಲಂ ಟ್ರ್ಯಾಕರ್", "about": "ಬಗ್ಗೆ",
+    "listings": "ಸೇವೆಗಳು", "map": "ನಕ್ಷೆ", "safety": "ಸುರಕ್ಷತೆ", "tracker": "ಗಿರಿವಲಂ ಟ್ರ್ಯಾಕರ್", "about": "ಬಗ್ಗೆ",
     "admin": "Admin", "business": "Business", "account": "ಖಾತೆ",
     "login": "ಲಾಗಿನ್", "register": "ಸೈನ್ ಅಪ್", "logout": "ಲಾಗ್ ಔಟ್", "language": "ಭಾಷೆ"
   },

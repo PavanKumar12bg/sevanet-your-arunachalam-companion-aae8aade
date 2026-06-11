@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useRole } from "@/lib/use-role";
 import { useEffect } from "react";
-import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath } from "lucide-react";
+import { LayoutDashboard, List, FolderTree, Star, Users, Briefcase, Settings, Hotel, UtensilsCrossed, Bath, ShieldAlert, Megaphone } from "lucide-react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const Route = createFileRoute("/admin")({
@@ -21,6 +21,8 @@ const nav: NavItem[] = [
   { key: "reviews", to: "/admin/reviews", label: "Reviews", icon: Star },
   { key: "users", to: "/admin/users", label: "Users", icon: Users },
   { key: "biz", to: "/admin/businesses", label: "Businesses", icon: Briefcase },
+  { key: "safety", to: "/admin/safety", label: "Safety", icon: ShieldAlert },
+  { key: "announce", to: "/admin/announcements", label: "Announcements", icon: Megaphone },
   { key: "settings", to: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
