@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as LoginRouteImport } from './routes/login'
@@ -25,13 +26,20 @@ import { Route as BusinessRegisterRouteImport } from './routes/business.register
 import { Route as BusinessDashboardRouteImport } from './routes/business.dashboard'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSafetyRouteImport } from './routes/admin.safety'
 import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminListingsRouteImport } from './routes/admin.listings'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
 import { Route as AdminBusinessesRouteImport } from './routes/admin.businesses'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
 import { Route as BusinessListingsIdRouteImport } from './routes/business.listings.$id'
 import { Route as AdminListingsIdRouteImport } from './routes/admin.listings.$id'
 
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -112,6 +120,11 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSafetyRoute = AdminSafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminReviewsRoute = AdminReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
@@ -130,6 +143,11 @@ const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
 const AdminBusinessesRoute = AdminBusinessesRouteImport.update({
   id: '/businesses',
   path: '/businesses',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
   getParentRoute: () => AdminRoute,
 } as any)
 const BusinessListingsIdRoute = BusinessListingsIdRouteImport.update({
@@ -154,10 +172,13 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/register': typeof RegisterRoute
+  '/safety': typeof SafetyRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/businesses': typeof AdminBusinessesRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/listings': typeof AdminListingsRouteWithChildren
   '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/safety': typeof AdminSafetyRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
   '/business/dashboard': typeof BusinessDashboardRoute
@@ -177,10 +198,13 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/register': typeof RegisterRoute
+  '/safety': typeof SafetyRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/businesses': typeof AdminBusinessesRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/listings': typeof AdminListingsRouteWithChildren
   '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/safety': typeof AdminSafetyRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
   '/business/dashboard': typeof BusinessDashboardRoute
@@ -202,10 +226,13 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/register': typeof RegisterRoute
+  '/safety': typeof SafetyRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/businesses': typeof AdminBusinessesRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/listings': typeof AdminListingsRouteWithChildren
   '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/safety': typeof AdminSafetyRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/users': typeof AdminUsersRoute
   '/business/dashboard': typeof BusinessDashboardRoute
@@ -228,10 +255,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/register'
+    | '/safety'
+    | '/admin/announcements'
     | '/admin/businesses'
     | '/admin/categories'
     | '/admin/listings'
     | '/admin/reviews'
+    | '/admin/safety'
     | '/admin/settings'
     | '/admin/users'
     | '/business/dashboard'
@@ -251,10 +281,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/register'
+    | '/safety'
+    | '/admin/announcements'
     | '/admin/businesses'
     | '/admin/categories'
     | '/admin/listings'
     | '/admin/reviews'
+    | '/admin/safety'
     | '/admin/settings'
     | '/admin/users'
     | '/business/dashboard'
@@ -275,10 +308,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/register'
+    | '/safety'
+    | '/admin/announcements'
     | '/admin/businesses'
     | '/admin/categories'
     | '/admin/listings'
     | '/admin/reviews'
+    | '/admin/safety'
     | '/admin/settings'
     | '/admin/users'
     | '/business/dashboard'
@@ -300,6 +336,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   RegisterRoute: typeof RegisterRoute
+  SafetyRoute: typeof SafetyRoute
   BusinessDashboardRoute: typeof BusinessDashboardRoute
   BusinessRegisterRoute: typeof BusinessRegisterRoute
   ListingSlugRoute: typeof ListingSlugRoute
@@ -308,6 +345,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -420,6 +464,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/safety': {
+      id: '/admin/safety'
+      path: '/safety'
+      fullPath: '/admin/safety'
+      preLoaderRoute: typeof AdminSafetyRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/reviews': {
       id: '/admin/reviews'
       path: '/reviews'
@@ -446,6 +497,13 @@ declare module '@tanstack/react-router' {
       path: '/businesses'
       fullPath: '/admin/businesses'
       preLoaderRoute: typeof AdminBusinessesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/business/listings/$id': {
@@ -478,20 +536,24 @@ const AdminListingsRouteWithChildren = AdminListingsRoute._addFileChildren(
 )
 
 interface AdminRouteChildren {
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
   AdminBusinessesRoute: typeof AdminBusinessesRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminListingsRoute: typeof AdminListingsRouteWithChildren
   AdminReviewsRoute: typeof AdminReviewsRoute
+  AdminSafetyRoute: typeof AdminSafetyRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
   AdminBusinessesRoute: AdminBusinessesRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminListingsRoute: AdminListingsRouteWithChildren,
   AdminReviewsRoute: AdminReviewsRoute,
+  AdminSafetyRoute: AdminSafetyRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
@@ -510,6 +572,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   RegisterRoute: RegisterRoute,
+  SafetyRoute: SafetyRoute,
   BusinessDashboardRoute: BusinessDashboardRoute,
   BusinessRegisterRoute: BusinessRegisterRoute,
   ListingSlugRoute: ListingSlugRoute,
@@ -518,13 +581,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
